@@ -43,7 +43,7 @@
 
 Name:       chromium
 Version:    58.0.3029.140
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A WebKit (Blink) powered web browser
 
 Group:      Applications/Internet
@@ -676,6 +676,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Sat Jun 03 2017 Vaughan Agrez <devel at agrez dot net> 58.0.3029.140-2
+- Fix icon name in desktop file
+
 * Tue May 30 2017 Vaughan Agrez <devel at agrez dot net> 58.0.3029.140-1
 - Import (from UnitedRpms) and rename package
 - Update to 58.0.3029.140
