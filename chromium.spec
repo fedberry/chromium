@@ -75,7 +75,8 @@ Patch13:    chromium-v8-gcc7.patch
 # Fix gn build
 Patch21:	chromium-58.0.3029.110-fix-gn.patch
 
-ExclusiveArch: armv7hl
+
+ExclusiveArch: armv7l x86_64
 
 BuildRequires: clang, llvm
 BuildRequires: ninja-build, bison, gperf, hwdata
@@ -142,8 +143,8 @@ Chromium is an open-source web browser, powered by WebKit (Blink).
 
 %package libs
 Summary: Shared libraries used by chromium (and chrome-remote-desktop)
-Requires: %{name}-libs-media = %{version}-%{release}
-Provides: %{name}-libs = %{version}-%{release}
+Requires: %{name}-libs-media%{_isa} = %{version}-%{release}
+Provides: %{name}-libs%{_isa} = %{version}-%{release}
 Provides: chromium-libs >= 60
 
 %description libs
@@ -165,7 +166,7 @@ members of the Chromium and WebDriver teams.
 
 %package libs-media
 Summary: Chromium media libraries built with all possible codecs
-Provides: %{name}-libs-media = %{version}-%{release}
+Provides: %{name}-libs-media%{_isa} = %{version}-%{release}
 Provides: chromium-libs-media >= 60
 
 %description libs-media
@@ -200,6 +201,13 @@ git clone --depth 1 https://github.com/pallets/markupsafe.git
 cp -f $PWD/markupsafe/markupsafe/*.py $PWD/markupsafe/
 cp -f $PWD/markupsafe/markupsafe/*.c $PWD/markupsafe/
 popd
+
+# node fix
+%ifarch x86_64
+mkdir -p third_party/node/linux/node-linux-x64/bin
+ln -s /usr/bin/node third_party/node/linux/node-linux-x64/bin/node
+%endif
+
 
 %if %{with remote_desktop}
 # Fix hardcoded path in remoting code
@@ -384,15 +392,12 @@ sed -i.orig -e 's/getenv("CHROME_VERSION_EXTRA")/"FedBerry"/' $FILE
 %build
 cd %{_builddir}/chromium-%{version}/
 
-%if !%{without clang}
+%if %{with clang}
 export CC=clang CXX=clang++
 %endif
 
 
 _flags+=(
-    'arm_optionally_use_neon=false'
-    'arm_use_neon=false'
-    'arm_use_thumb=true'
     'enable_google_now=false'
     'enable_hangout_services_extension=false'
     'enable_hotwording=false'
@@ -400,7 +405,9 @@ _flags+=(
     'enable_nacl=false'
     'enable_nacl_nonsfi=false'
     'enable_wayland_server=false'
+    'enable_swiftshader=false'
     'enable_widevine=true'
+    'fatal_linker_warnings=false'
     'ffmpeg_branding="Chrome"'
     'fieldtrial_testing_like_official_build=true'
     'google_api_key="AIzaSyCkfPOPZXDKNn8hhgu3JrA62wIgC93d44k"'
@@ -413,8 +420,6 @@ _flags+=(
     'proprietary_codecs=true'
     'remove_webcore_debug_symbols=true'
     'symbol_level=0'
-    'target_cpu="arm"'
-    'target_extra_ldflags="-Wl,--no-keep-memory -Wl,--reduce-memory-overheads"'
     'treat_warnings_as_errors=false'
     'use_allocator="none"'
     'use_alsa=true'
@@ -424,11 +429,21 @@ _flags+=(
     'use_gnome_keyring=false'
     'use_gold=false'
     'use_ozone=false'
-    'use_libpci=false'
     'use_pulseaudio=true'
     'use_sysroot=false'
     'use_vulcanize=false'
-%if !%{without clang}
+%ifarch x86_64
+    'system_libdir="lib64"'
+%endif
+%ifarch armv7l
+    'target_cpu="arm"'
+    'arm_optionally_use_neon=false'
+    'arm_use_neon=false'
+    'arm_use_thumb=true'
+    'target_extra_ldflags="-Wl,--no-keep-memory -Wl,--reduce-memory-overheads"'
+    'use_libpci=false'
+%endif
+%if %{with clang}
     'is_clang=true'
     'clang_base_path="/usr"'
     'clang_use_chrome_plugins=false'
@@ -449,7 +464,9 @@ _flags+=(
 export PATH=%{_builddir}/tools/depot_tools/:"$PATH"
 
 # fix arm gcc
+%ifarch armv7l
 sed -i 's|arm-linux-gnueabihf-||g' build/toolchain/linux/BUILD.gn
+%endif
 
 ./tools/gn/bootstrap/bootstrap.py -v --gn-gen-args "${_flags[*]}"
 
