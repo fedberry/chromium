@@ -77,7 +77,7 @@ Patch21:	chromium-58.0.3029.110-fix-gn.patch
 
 ExclusiveArch: armv7hl
 
-BuildRequires: clang
+BuildRequires: clang, llvm
 BuildRequires: ninja-build, bison, gperf, hwdata
 BuildRequires: libgcc, glibc
 BuildRequires: libatomic
@@ -123,9 +123,9 @@ BuildRequires: libappstream-glib
 BuildRequires: pam-devel
 BuildRequires: systemd
 BuildRequires: pkgconfig(gtk+-3.0) 
-
-# markupsafe missed
 BuildRequires: git
+BuildRequires: nodejs
+BuildRequires: libdrm-devel
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
 Requires: hicolor-icon-theme
