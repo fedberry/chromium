@@ -12,12 +12,6 @@
 # Chromium users doesn't need chrome-remote-desktop
 %bcond_without remote_desktop
 
-%if 0%{?fedora} >= 24
-%bcond_without system_libvpx
-%else
-%bcond_with system_libvpx
-%endif
-
 # Use gcc instead of clang (default compiler is clang)
 %bcond_without clang
 
@@ -123,9 +117,6 @@ BuildRequires: flac-devel
 BuildRequires: harfbuzz-devel
 BuildRequires: libjpeg-turbo-devel
 BuildRequires: libpng-devel
-%if %{with system_libvpx}
-BuildRequires: libvpx-devel
-%endif
 BuildRequires: libwebp-devel
 BuildRequires: pkgconfig(libxslt), pkgconfig(libxml-2.0)
 BuildRequires: re2-devel
@@ -297,13 +288,11 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/libsrtp \
     third_party/libudev \
     third_party/libusb \
-%if !%{with system_libvpx}
     third_party/libvpx \
     third_party/libvpx/source/libvpx/third_party/googletest \
     third_party/libvpx/source/libvpx/third_party/libwebm \
     third_party/libvpx/source/libvpx/third_party/libyuv \
     third_party/libvpx/source/libvpx/third_party/x86inc \
-%endif
     third_party/libwebm \
     third_party/libxml/chromium \
     third_party/libXNVCtrl \
@@ -367,9 +356,6 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     harfbuzz-ng \
     libjpeg \
     libpng \
-%if %{with system_libvpx}
-    libvpx \
-%endif
     libwebp \
     libxml \
     libxslt \
