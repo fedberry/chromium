@@ -76,12 +76,8 @@ Patch4:     chromium-webkit-fpermissive.patch
 Patch5:     chromium-v8-gcc7.patch
 Patch12:    buildflags.patch
 Patch13:    parallel.patch
-# Enable ARM CPU detection for webrtc
-Patch20:	chromium-52.0.2743.82-arm-webrtc.patch
 # Fix gn build
 Patch21:	chromium-58.0.3029.110-fix-gn.patch
-# System vpx doesn't yet support vp9 interface used by webrtc
-Patch22:    vpx.patch
 
 ExclusiveArch: armv7hl
 
