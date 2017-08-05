@@ -81,6 +81,9 @@ Patch13:    chromium-v8-gcc7.patch
 # gn bootstrap fix from Gentoo
 Patch20:    chromium-gn-bootstrap.patch
 
+# https://bugs.chromium.org/p/skia/issues/detail?id=6663
+Patch21:    chromium-clip-freetype-glyph-bitmap-to-mask.patch
+
 
 ExclusiveArch: armv7l x86_64
 
