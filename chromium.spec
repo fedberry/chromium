@@ -63,17 +63,23 @@ Source11:   chromium-browser.desktop
 Source12:   chromium-browser.xml
 Source13:   chromium-browser.appdata.xml
 
+# Support build flags passed in the --args to gn (Debian)
+Patch1:     chromium-buildflags.patch
+
+# Respect specified number of parallel jobs while bootstrapping gn (Debian)
+Patch2:     chromium-parallel.patch
+
 # Add a patch from Fedora to fix GN build
 # http://pkgs.fedoraproject.org/cgit/rpms/chromium.git/commit/?id=0df9641
-Patch1:     chromium-last-commit-position.patch
+Patch10:    chromium-last-commit-position.patch
 
 # Add patches from Fedora to fix building with GCC 7
 Patch11:    chromium-blink-fpermissive.patch
 Patch12:    chromium-blink-gcc7.patch
 Patch13:    chromium-v8-gcc7.patch
 
-# Fix gn build
-Patch21:	chromium-58.0.3029.110-fix-gn.patch
+# gn bootstrap fix from Gentoo
+Patch20:    chromium-gn-bootstrap.patch
 
 
 ExclusiveArch: armv7l x86_64
