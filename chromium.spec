@@ -735,6 +735,16 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Thu Aug 03 2017 Vaughan Agrez <devel at agrez dot net> 60.0.3112.78-1
+- Update to 60.0.3112.78
+- Resurrect x86_64 build support for testing (RPi is too slow)
+- Update Requires & Provides excludes for private libs
+- Update gcc7 fixes (patches 11-13)
+- Rename/refactor parallel/bootstrap/buildflags patches
+- Add fix for freetype rendering (patch21)
+- Fix gtk2 build (patch22)
+- Increase build verbosity
+
 * Sat Jun 03 2017 Vaughan Agrez <devel at agrez dot net> 58.0.3029.140-2
 - Fix icon name in desktop file
 
