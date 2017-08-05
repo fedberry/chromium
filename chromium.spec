@@ -106,7 +106,7 @@ Patch21:    chromium-clip-freetype-glyph-bitmap-to-mask.patch
 Patch22:    chromium-fix-gtk2-build.patch
 
 
-ExclusiveArch: armv7l x86_64
+ExclusiveArch: armv7hl x86_64
 
 BuildRequires: clang, llvm
 BuildRequires: ninja-build, bison, gperf, hwdata
@@ -499,7 +499,7 @@ _flags+=(
 %ifarch x86_64
     'system_libdir="lib64"'
 %endif
-%ifarch armv7l
+%ifarch armv7hl
     'target_cpu="arm"'
     'arm_optionally_use_neon=false'
     'arm_use_neon=false'
@@ -528,7 +528,7 @@ _flags+=(
 export PATH=%{_builddir}/tools/depot_tools/:"$PATH"
 
 # fix arm gcc
-%ifarch armv7l
+%ifarch armv7hl
 sed -i 's|arm-linux-gnueabihf-||g' build/toolchain/linux/BUILD.gn
 %endif
 
