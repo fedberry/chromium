@@ -3,7 +3,7 @@
 
 # We don't want any libs in these directories to generate Provides
 %global __provides_exclude_from %{chromiumdir}/.*\\.so|%{chromiumdir}/lib/.*\\.so
-%global private_libs libEGL|libffmpeg|libGLESv2
+%global private_libs libEGL|libffmpeg|libGLESv2|libVkLayer_core_validation|libVkLayer_swapchain|libVkLayer_object_tracker|libVkLayer_threading|libVkLayer_parameter_validation|libVkLayer_unique_objects
 %global __requires_exclude ^(%{private_libs})\\.so
 
 # Generally chromium is a monster if you compile the source code, enabling all; and takes hours compiling; common users doesn't need all tools.
@@ -23,7 +23,6 @@
 
 # markupsafe
 %bcond_with system_markupsafe
-
 
 # https://github.com/dabeaz/ply/issues/66
 %if 0%{?fedora} >= 24
@@ -169,9 +168,6 @@ Requires: hicolor-icon-theme
 Requires: re2
 Requires: %{name}-libs = %{version}-%{release}
 
-Provides: bundled(ffmpeg) = 2.6
-Provides: bundled(mesa) = 9.0.3
-
 Provides: chromium >= 60
 
 %description
@@ -182,6 +178,13 @@ Summary: Shared libraries used by chromium (and chrome-remote-desktop)
 Requires: %{name}-libs-media%{_isa} = %{version}-%{release}
 Provides: %{name}-libs%{_isa} = %{version}-%{release}
 Provides: chromium-libs >= 60
+Provides: bundled(mesa) = 9.0.3
+Provides: bundled(libVkLayer_core_validation)
+Provides: bundled(libVkLayer_swapchain)
+Provides: bundled(libVkLayer_object_tracker)
+Provides: bundled(libVkLayer_threading)
+Provides: bundled(libVkLayer_parameter_validation)
+Provides: bundled(libVkLayer_unique_objects)
 
 %description libs
 Shared libraries used by chromium (and chrome-remote-desktop).
@@ -204,6 +207,7 @@ members of the Chromium and WebDriver teams.
 Summary: Chromium media libraries built with all possible codecs
 Provides: %{name}-libs-media%{_isa} = %{version}-%{release}
 Provides: chromium-libs-media >= 60
+Provides: bundled(ffmpeg) = 2.6
 
 %description libs-media
 Chromium media libraries built with all possible codecs. Chromium is an
@@ -233,7 +237,7 @@ tar xJf %{S:1} -C %{_builddir}
 
 pushd third_party
 rm -rf markupsafe/
-git clone --depth 1 https://github.com/pallets/markupsafe.git 
+git clone --depth 1 https://github.com/pallets/markupsafe.git
 cp -f $PWD/markupsafe/markupsafe/*.py $PWD/markupsafe/
 cp -f $PWD/markupsafe/markupsafe/*.c $PWD/markupsafe/
 popd
