@@ -42,8 +42,8 @@
 %bcond_with _gkt3
 
 Name:       chromium
-Version:    58.0.3029.140
-Release:    2%{?dist}
+Version:    60.0.3112.78
+Release:    1%{?dist}
 Summary:    A WebKit (Blink) powered web browser
 
 Group:      Applications/Internet
@@ -149,10 +149,10 @@ Requires: hicolor-icon-theme
 Requires: re2
 Requires: %{name}-libs = %{version}-%{release}
 
-Provides: chromium >= 58
 Provides: bundled(ffmpeg) = 2.6
 Provides: bundled(mesa) = 9.0.3
 
+Provides: chromium >= 60
 
 %description
 Chromium is an open-source web browser, powered by WebKit (Blink).
@@ -161,7 +161,7 @@ Chromium is an open-source web browser, powered by WebKit (Blink).
 Summary: Shared libraries used by chromium (and chrome-remote-desktop)
 Requires: %{name}-libs-media = %{version}-%{release}
 Provides: %{name}-libs = %{version}-%{release}
-Provides: chromium-libs >= 58
+Provides: chromium-libs >= 60
 
 %description libs
 Shared libraries used by chromium (and chrome-remote-desktop).
@@ -170,7 +170,7 @@ Shared libraries used by chromium (and chrome-remote-desktop).
 %package chromedriver
 Summary: WebDriver for Google Chrome/Chromium
 Group: Development/Libraries
-Provides: chromedriver >= 58
+Provides: chromedriver >= 60
 
 %description chromedriver
 WebDriver is an open source tool for automated testing of webapps across many
@@ -183,7 +183,7 @@ members of the Chromium and WebDriver teams.
 %package libs-media
 Summary: Chromium media libraries built with all possible codecs
 Provides: %{name}-libs-media = %{version}-%{release}
-Provides: chromium-libs-media >= 58
+Provides: chromium-libs-media >= 60
 
 %description libs-media
 Chromium media libraries built with all possible codecs. Chromium is an
