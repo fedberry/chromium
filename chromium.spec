@@ -100,6 +100,12 @@ Patch20:    chromium-gn-bootstrap.patch
 # https://bugs.chromium.org/p/skia/issues/detail?id=6663
 Patch21:    chromium-clip-freetype-glyph-bitmap-to-mask.patch
 
+# Refer: https://bugs.chromium.org/p/chromium/issues/detail?id=749770
+# However this patch won't apply against current stable release.
+# In the meantime, reverse the commit that broke it :-/
+# https://chromium.googlesource.com/chromium/src/+/8d1845c2267b05df565fa33e3c5e2b0e242a21cc%5E%21/#F0
+Patch22:    chromium-fix-gtk2-build.patch
+
 
 ExclusiveArch: armv7l x86_64
 
