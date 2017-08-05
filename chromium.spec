@@ -35,6 +35,22 @@
 # Chromium breaks on wayland, hidpi, and colors with gtk3 enabled.
 %bcond_with _gkt3
 
+# The libxml_utils code depends on the specific bundled libxml checkout
+# which is not compatible with the current code in the Fedora package as of
+# 2017-06-08.
+%if 0
+%bcond_without system_libxml2
+%else
+%bcond_with system_libxml2
+%endif
+
+# Requires >= harfbuzz 1.4.2
+%if 0%{fedora} < 26
+%bcond_with system_harfbuzz
+%else
+%bcond_without system_harfbuzz
+%endif
+
 Name:       chromium
 Version:    60.0.3112.78
 Release:    1%{?dist}
@@ -116,11 +132,16 @@ BuildRequires: python-markupsafe
 BuildRequires: python2-ply
 %endif
 BuildRequires: flac-devel
+%if %{with system_harfbuzz}
 BuildRequires: harfbuzz-devel
+%endif
 BuildRequires: libjpeg-turbo-devel
 BuildRequires: libpng-devel
 BuildRequires: libwebp-devel
-BuildRequires: pkgconfig(libxslt), pkgconfig(libxml-2.0)
+BuildRequires: pkgconfig(libxslt)
+%if %{with system_libxml2}
+BuildRequires: pkgconfig(libxml-2.0)
+%endif
 BuildRequires: re2-devel
 BuildRequires: snappy-devel
 BuildRequires: yasm
@@ -268,6 +289,7 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/catapult/tracing/third_party/gl-matrix \
     third_party/catapult/tracing/third_party/jszip \
     third_party/catapult/tracing/third_party/mannwhitneyu \
+    third_party/catapult/tracing/third_party/oboe \
     third_party/ced \
     third_party/cld_2 \
     third_party/cld_3 \
@@ -278,9 +300,13 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/fips181 \
     third_party/flatbuffers \
     third_party/flot \
+    third_party/freetype \
+    third_party/glslang-angle \
     third_party/google_input_tools \
     third_party/google_input_tools/third_party/closure_library \
     third_party/google_input_tools/third_party/closure_library/third_party/closure \
+    third_party/googletest \
+    third_party/harfbuzz-ng \
     third_party/hunspell \
     third_party/iccjpeg \
     third_party/icu \
@@ -291,19 +317,23 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/khronos \
     third_party/leveldatabase \
     third_party/libaddressinput \
+    third_party/libdrm \
     third_party/libjingle \
     third_party/libphonenumber \
     third_party/libsecret \
     third_party/libsrtp \
     third_party/libudev \
-    third_party/libusb \
     third_party/libvpx \
     third_party/libvpx/source/libvpx/third_party/googletest \
     third_party/libvpx/source/libvpx/third_party/libwebm \
     third_party/libvpx/source/libvpx/third_party/libyuv \
     third_party/libvpx/source/libvpx/third_party/x86inc \
     third_party/libwebm \
+%if %{with system_libxml2}
     third_party/libxml/chromium \
+%else
+    third_party/libxml \
+%endif
     third_party/libXNVCtrl \
     third_party/libyuv \
     third_party/lss \
@@ -318,14 +348,13 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/pdfium \
     third_party/pdfium/third_party/agg23 \
     third_party/pdfium/third_party/base \
+    third_party/pdfium/third_party/build \
     third_party/pdfium/third_party/bigint \
     third_party/pdfium/third_party/freetype \
     third_party/pdfium/third_party/lcms2-2.6 \
-    third_party/pdfium/third_party/libjpeg \
     third_party/pdfium/third_party/libopenjpeg20 \
     third_party/pdfium/third_party/libpng16 \
     third_party/pdfium/third_party/libtiff \
-    third_party/pdfium/third_party/zlib_v128 \
 %if !%{with system_ply}
     third_party/ply \
 %endif
@@ -335,13 +364,21 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/qcms \
     third_party/sfntly \
     third_party/skia \
+    third_party/skia/third_party/vulkan \
     third_party/smhasher \
     third_party/speech-dispatcher \
+    third_party/spirv-headers \
+    third_party/spirv-tools-angle \
     third_party/sqlite \
+    third_party/swiftshader \
+    third_party/swiftshader/third_party/llvm-subzero \
+    third_party/swiftshader/third_party/subzero \
     third_party/expat \
     third_party/tcmalloc \
     third_party/usb_ids \
     third_party/usrsctp \
+    third_party/vulkan \
+    third_party/vulkan-validation-layers \
     third_party/web-animations-js \
     third_party/webdriver \
     third_party/WebKit \
@@ -350,7 +387,6 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/inspector_protocol \
     v8/third_party/inspector_protocol \
     third_party/woff2 \
-    third_party/x86inc \
     third_party/xdg-utils \
     third_party/yasm/run_yasm.py \
     third_party/zlib/google \
@@ -358,15 +394,24 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/blanketjs \
     third_party/qunit \
     url/third_party/mozilla \
+%if !%{with system_harfbuzz}
+    third_party/harfbuzz-ng \
+%endif
     v8/src/third_party/valgrind
+
 
 ./build/linux/unbundle/replace_gn_files.py --system-libraries \
     flac \
+    libdrm \
+%if %{with system_harfbuzz}
     harfbuzz-ng \
+%endif
     libjpeg \
     libpng \
     libwebp \
+%if %{with system_libxml2}
     libxml \
+%endif
     libxslt \
     re2 \
     snappy \
