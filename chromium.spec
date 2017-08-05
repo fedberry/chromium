@@ -67,15 +67,11 @@ Source13:   chromium-browser.appdata.xml
 # http://pkgs.fedoraproject.org/cgit/rpms/chromium.git/commit/?id=0df9641
 Patch1:     chromium-last-commit-position.patch
 
-# Add several patches from Fedora to fix build with GCC 7
-# http://pkgs.fedoraproject.org/cgit/rpms/chromium.git/commit/?id=86f726d
-Patch4:     chromium-webkit-fpermissive.patch
+# Add patches from Fedora to fix building with GCC 7
+Patch11:    chromium-blink-fpermissive.patch
+Patch12:    chromium-blink-gcc7.patch
+Patch13:    chromium-v8-gcc7.patch
 
-# http://pkgs.fedoraproject.org/cgit/rpms/chromium.git/commit/?id=54f615e
-# http://pkgs.fedoraproject.org/cgit/rpms/chromium.git/commit/?id=ce69059
-Patch5:     chromium-v8-gcc7.patch
-Patch12:    buildflags.patch
-Patch13:    parallel.patch
 # Fix gn build
 Patch21:	chromium-58.0.3029.110-fix-gn.patch
 
