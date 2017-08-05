@@ -536,13 +536,13 @@ sed -i 's|arm-linux-gnueabihf-||g' build/toolchain/linux/BUILD.gn
 jobs=$(expr $(grep -c ^processor /proc/cpuinfo) - 1)
 
 %if %{with devel_tools}
-%__ninja -C out/Release chrome chrome_sandbox chromedriver widevinecdmadapter -j$jobs
+%__ninja -C out/Release -v chrome chrome_sandbox chromedriver widevinecdmadapter -j$jobs
 %else
-%__ninja -C out/Release chrome widevinecdmadapter -j$jobs
+%__ninja -C out/Release -v chrome widevinecdmadapter -j$jobs
 %endif
 
 %if %{with remote_desktop}
-%__ninja -C out/Release remoting_all -j$jobs
+%__ninja -C out/Release -v remoting_all -j$jobs
 %endif
 
 
