@@ -51,7 +51,7 @@
 %endif
 
 Name:       chromium
-Version:    60.0.3112.78
+Version:    60.0.3112.90
 Release:    1%{?dist}
 Summary:    A WebKit (Blink) powered web browser
 
@@ -732,6 +732,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Sat Aug 05 2017 Vaughan Agrez <devel at agrez dot net> 60.0.3112.90-1
+- Update to 60.0.3112.90
+- Drop patch21 (fixed upstream)
+
 * Thu Aug 03 2017 Vaughan Agrez <devel at agrez dot net> 60.0.3112.78-1
 - Update to 60.0.3112.78
 - Resurrect x86_64 build support for testing (RPi is too slow)
