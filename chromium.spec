@@ -96,9 +96,6 @@ Patch13:    chromium-v8-gcc7.patch
 # gn bootstrap fix from Gentoo
 Patch20:    chromium-gn-bootstrap.patch
 
-# https://bugs.chromium.org/p/skia/issues/detail?id=6663
-Patch21:    chromium-clip-freetype-glyph-bitmap-to-mask.patch
-
 # Refer: https://bugs.chromium.org/p/chromium/issues/detail?id=749770
 # However this patch won't apply against current stable release.
 # In the meantime, reverse the commit that broke it :-/
