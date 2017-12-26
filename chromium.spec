@@ -1,3 +1,4 @@
+%global debug_package %{nil}
 %global chromiumdir %{_libdir}/chromium
 %global crd_path %{_libdir}/chrome-remote-desktop
 
