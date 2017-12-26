@@ -465,6 +465,18 @@ cd %{_builddir}/chromium-%{version}/
 %if %{with clang}
 export CC=clang CXX=clang++
 %endif
+# Re-configure bundled ffmpeg
+echo "Configuring bundled ffmpeg..."
+pushd third_party/ffmpeg
+%ifarch armv7hl
+chromium/scripts/build_ffmpeg.py linux arm --branding Chrome
+%else
+chromium/scripts/build_ffmpeg.py linux x64 --branding Chrome
+%endif
+chromium/scripts/copy_config.sh
+chromium/scripts/generate_gn.py
+popd
+
 
 
 _flags+=(
