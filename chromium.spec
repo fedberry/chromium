@@ -555,8 +555,6 @@ _flags+=(
 %endif
 )
 
-#export PATH=%{_builddir}/tools/depot_tools/:"$PATH"
-
 # fix arm gcc
 %ifarch armv7hl
 sed -i 's|arm-linux-gnueabihf-||g' build/toolchain/linux/BUILD.gn
