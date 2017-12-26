@@ -103,7 +103,7 @@ Patch27:    chromium-non-void-return.patch
 
 ExclusiveArch: armv7hl x86_64
 
-BuildRequires: clang, llvm
+BuildRequires: clang, llvm, lld
 BuildRequires: ninja-build, bison, gperf, hwdata
 BuildRequires: libgcc, glibc
 BuildRequires: libatomic
@@ -119,15 +119,9 @@ BuildRequires: python-html5lib
 %if %{with system_jinja2}
 BuildRequires: python2-jinja2
 %endif
-
 %if %{with system_markupsafe}
-%if 0%{?fedora} >= 26
 BuildRequires: python2-markupsafe
-%else
-BuildRequires: python-markupsafe
 %endif
-%endif
-
 %if %{with system_ply}
 BuildRequires: python2-ply
 %endif
@@ -142,6 +136,7 @@ BuildRequires: libvpx-devel
 %endif
 BuildRequires: libwebp-devel
 BuildRequires: pkgconfig(libxslt)
+BuildRequires: opus-devel
 %if %{with system_libxml2}
 BuildRequires: pkgconfig(libxml-2.0)
 %endif
@@ -160,13 +155,16 @@ BuildRequires: pkgconfig(gtk+-3.0)
 BuildRequires: git
 BuildRequires: nodejs
 BuildRequires: libdrm-devel
+BuildRequires: mesa-libGL-devel
+BuildRequires: mesa-libEGL-devel
+BuildRequires: vulkan-devel
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
 Requires: hicolor-icon-theme
 Requires: re2
 Requires: %{name}-libs = %{version}-%{release}
 
-Provides: chromium >= 60
+Provides: chromium >= 63
 
 %description
 Chromium is an open-source web browser, powered by WebKit (Blink).
@@ -174,7 +172,7 @@ Chromium is an open-source web browser, powered by WebKit (Blink).
 %package libs
 Summary: Shared libraries used by chromium (and chrome-remote-desktop)
 Provides: %{name}-libs%{_isa} = %{version}-%{release}
-Provides: chromium-libs >= 60
+Provides: chromium-libs >= 63
 Provides: bundled(mesa) = 9.0.3
 Provides: bundled(libVkLayer_core_validation)
 Provides: bundled(libVkLayer_swapchain)
@@ -191,7 +189,7 @@ Shared libraries used by chromium (and chrome-remote-desktop).
 %package chromedriver
 Summary: WebDriver for Google Chrome/Chromium
 Group: Development/Libraries
-Provides: chromedriver >= 60
+Provides: chromedriver >= 63
 
 %description chromedriver
 WebDriver is an open source tool for automated testing of webapps across many
