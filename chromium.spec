@@ -59,12 +59,9 @@ License:    BSD and LGPLv2+
 URL:        https://www.chromium.org
 Vendor:     URPMS
 Source0:    https://commondatastorage.googleapis.com/chromium-browser-official/chromium-%{version}.tar.xz
-Source1:    depot_tools.tar.xz
-Source2:    chromium-latest.py
-Source3:    chromium-ffmpeg-clean.sh
-Source4:    chromium-ffmpeg-free-sources.py
+Source1:    chromium-latest.py
 %if %{with remote_desktop}
-Source33:   chrome-remote-desktop.service
+Source2:    chrome-remote-desktop.service
 %endif
 
 # The following two source files are copied and modified from
@@ -228,8 +225,6 @@ Remote desktop support for google-chrome & chromium.
 
 %prep
 %autosetup -n chromium-%{version} -p1
-
-tar xJf %{S:1} -C %{_builddir}
 
 pushd third_party
 rm -rf markupsafe/
@@ -521,7 +516,7 @@ _flags+=(
 %endif
 )
 
-export PATH=%{_builddir}/tools/depot_tools/:"$PATH"
+#export PATH=%{_builddir}/tools/depot_tools/:"$PATH"
 
 # fix arm gcc
 %ifarch armv7hl
@@ -632,7 +627,7 @@ cp -a remoting/host/linux/linux_me2me_host.py %{buildroot}%{crd_path}/chrome-rem
 cp -a remoting/host/installer/linux/is-remoting-session %{buildroot}%{crd_path}/
 
 mkdir -p %{buildroot}%{_unitdir}
-cp -a %{SOURCE33} %{buildroot}%{_unitdir}/
+cp -a %{SOURCE2} %{buildroot}%{_unitdir}/
 sed -i 's|@@CRD_PATH@@|%{crd_path}|g' %{buildroot}%{_unitdir}/chrome-remote-desktop.service
 %endif
 
