@@ -243,6 +243,21 @@ ln -s /usr/bin/node third_party/node/linux/node-linux-x64/bin/node
 sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/daemon_controller_delegate_linux.cc
 %endif
 
+%if %{with clang}
+# Remove compiler flags not supported by Fedora's system clang
+sed -i \
+-e '/"-Wno-unused-lambda-capture"/d' \
+-e '/"-Wno-enum-compare-switch"/d' \
+-e '/"-Wno-null-pointer-arithmetic"/d' \
+-e '/"-Wno-tautological-unsigned-zero-compare"/d' \
+-e '/"-Wno-tautological-unsigned-enum-zero-compare"/d' \
+build/config/compiler/BUILD.gn
+
+# Remove ldflags not supported by Fedora's system lld
+sed -i 's/ || use_lld//' tools/v8_context_snapshot/BUILD.gn
+%endif
+
+
 ### build with widevine support
 
 # Patch from crbug (chromium bugtracker)
