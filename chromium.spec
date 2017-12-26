@@ -243,6 +243,13 @@ ln -s /usr/bin/node third_party/node/linux/node-linux-x64/bin/node
 sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/daemon_controller_delegate_linux.cc
 %endif
 
+# https://groups.google.com/a/chromium.org/d/msg/chromium-packagers/wuInaKJkosg/kMfIV_7wDgAJ
+rm -rf third_party/freetype/src
+git clone https://chromium.googlesource.com/chromium/src/third_party/freetype2 third_party/freetype/src 
+
+# xlocale.h is gone in >= F26
+sed -r -i 's/xlocale.h/locale.h/' buildtools/third_party/libc++/trunk/include/__locale
+
 %if %{with clang}
 # Remove compiler flags not supported by Fedora's system clang
 sed -i \
