@@ -265,9 +265,11 @@ sed -i 's/ || use_lld//' tools/v8_context_snapshot/BUILD.gn
 sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/widevine/cdm/stub/widevine_cdm_version.h"
 
 ./build/linux/unbundle/remove_bundled_libraries.py --do-remove \
+    buildtools/third_party/libc++ \
+    third_party/icu \
+    base/third_party/icu/ \
     base/third_party/dmg_fp \
     base/third_party/dynamic_annotations \
-    base/third_party/icu \
     base/third_party/libevent \
     base/third_party/nspr \
     base/third_party/superfasthash \
@@ -275,38 +277,41 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     base/third_party/valgrind \
     base/third_party/xdg_mime \
     base/third_party/xdg_user_dirs \
-    breakpad/src/third_party/curl \
     chrome/third_party/mozilla_security_manager \
     courgette/third_party \
     native_client/src/third_party/dlmalloc \
     native_client/src/third_party/valgrind \
     net/third_party/mozilla_security_manager \
     net/third_party/nss \
+    third_party/node \
     third_party/adobe \
     third_party/analytics \
     third_party/angle \
-    third_party/markupsafe \
-    third_party/angle/src/common/third_party/numerics \
+    third_party/angle/src/common/third_party/base \
+    third_party/angle/src/common/third_party/smhasher \
     third_party/angle/src/third_party/compiler \
     third_party/angle/src/third_party/libXNVCtrl \
-    third_party/angle/src/third_party/murmurhash \
     third_party/angle/src/third_party/trace_event \
     third_party/boringssl \
+    third_party/blink \
+    third_party/breakpad \
+    third_party/breakpad/breakpad/src/third_party/curl \
     third_party/brotli \
     third_party/cacheinvalidation \
     third_party/catapult \
+    third_party/catapult/common/py_vulcanize/third_party/rcssmin  \
+    third_party/catapult/common/py_vulcanize/third_party/rjsmin  \
     third_party/catapult/third_party/polymer \
-    third_party/catapult/third_party/py_vulcanize \
-    third_party/catapult/third_party/py_vulcanize/third_party/rcssmin \
-    third_party/catapult/third_party/py_vulcanize/third_party/rjsmin \
     third_party/catapult/tracing/third_party/d3 \
     third_party/catapult/tracing/third_party/gl-matrix \
     third_party/catapult/tracing/third_party/jszip \
     third_party/catapult/tracing/third_party/mannwhitneyu \
     third_party/catapult/tracing/third_party/oboe \
+    third_party/catapult/tracing/third_party/pako \
     third_party/ced \
     third_party/cld_2 \
     third_party/cld_3 \
+    third_party/crc32c \
     third_party/cros_system_api \
     third_party/devscripts \
     third_party/dom_distiller_js \
@@ -314,16 +319,11 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/fips181 \
     third_party/flatbuffers \
     third_party/flot \
-    third_party/freetype \
-    third_party/glslang-angle \
     third_party/google_input_tools \
     third_party/google_input_tools/third_party/closure_library \
     third_party/google_input_tools/third_party/closure_library/third_party/closure \
-    third_party/googletest \
-    third_party/harfbuzz-ng \
     third_party/hunspell \
     third_party/iccjpeg \
-    third_party/icu \
 %if !%{with system_jinja2}
     third_party/jinja2 \
 %endif
@@ -331,12 +331,12 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/khronos \
     third_party/leveldatabase \
     third_party/libaddressinput \
-    third_party/libdrm \
     third_party/libjingle \
     third_party/libphonenumber \
     third_party/libsecret \
     third_party/libsrtp \
     third_party/libudev \
+    third_party/libusb \
 %if !%{with system_libvpx}
     third_party/libvpx \
     third_party/libvpx/source/libvpx/third_party/googletest \
@@ -364,16 +364,7 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/openmax_dl \
     third_party/opus \
     third_party/ots \
-    third_party/pdfium \
-    third_party/pdfium/third_party/agg23 \
-    third_party/pdfium/third_party/base \
-    third_party/pdfium/third_party/build \
-    third_party/pdfium/third_party/bigint \
-    third_party/pdfium/third_party/freetype \
-    third_party/pdfium/third_party/lcms2-2.6 \
-    third_party/pdfium/third_party/libopenjpeg20 \
-    third_party/pdfium/third_party/libpng16 \
-    third_party/pdfium/third_party/libtiff \
+    third_party/freetype \
 %if !%{with system_ply}
     third_party/ply \
 %endif
@@ -384,20 +375,15 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/sfntly \
     third_party/skia \
     third_party/skia/third_party/vulkan \
+    third_party/skia/third_party/gif \
+    third_party/node/node_modules/polymer-bundler/lib/third_party/UglifyJS2 \
     third_party/smhasher \
     third_party/speech-dispatcher \
-    third_party/spirv-headers \
-    third_party/spirv-tools-angle \
     third_party/sqlite \
-    third_party/swiftshader \
-    third_party/swiftshader/third_party/llvm-subzero \
-    third_party/swiftshader/third_party/subzero \
     third_party/expat \
     third_party/tcmalloc \
     third_party/usb_ids \
     third_party/usrsctp \
-    third_party/vulkan \
-    third_party/vulkan-validation-layers \
     third_party/web-animations-js \
     third_party/webdriver \
     third_party/WebKit \
@@ -413,10 +399,26 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/blanketjs \
     third_party/qunit \
     url/third_party/mozilla \
+    third_party/pdfium \
+    third_party/pdfium/third_party/agg23 \
+    third_party/pdfium/third_party/base \
+    third_party/pdfium/third_party/bigint \
+    third_party/pdfium/third_party/build \
+    third_party/pdfium/third_party/freetype \
+    third_party/pdfium/third_party/lcms \
+    third_party/pdfium/third_party/libopenjpeg20 \
+    third_party/pdfium/third_party/libpng16 \
+    third_party/pdfium/third_party/libtiff \
+    third_party/googletest \
+    third_party/glslang-angle \
+    third_party/vulkan \
+    third_party/vulkan-validation-layers \
+    third_party/spirv-tools-angle \
+    third_party/spirv-headers \
 %if !%{with system_harfbuzz}
     third_party/harfbuzz-ng \
 %endif
-    v8/src/third_party/valgrind
+v8/src/third_party/valgrind
 
 
 ./build/linux/unbundle/replace_gn_files.py --system-libraries \
