@@ -51,10 +51,9 @@
 %endif
 
 Name:       chromium
-Version:    60.0.3112.90
+Version:    63.0.3239.108
 Release:    1%{?dist}
 Summary:    A WebKit (Blink) powered web browser
-
 Group:      Applications/Internet
 License:    BSD and LGPLv2+
 URL:        https://www.chromium.org
