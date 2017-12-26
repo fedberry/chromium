@@ -83,21 +83,21 @@ Patch2:     chromium-parallel.patch
 # Add a patch from Fedora to fix GN build
 # http://pkgs.fedoraproject.org/cgit/rpms/chromium.git/commit/?id=0df9641
 Patch10:    chromium-last-commit-position.patch
+Patch11:    chromium-safe-math-gcc.patch
 
 # Add patches from Fedora to fix building with GCC 7
-Patch11:    chromium-blink-fpermissive.patch
-Patch12:    chromium-blink-gcc7.patch
-Patch13:    chromium-v8-gcc7.patch
+Patch12:    chromium-blink-fpermissive.patch
 
-# gn bootstrap fix from Gentoo
-Patch20:    chromium-gn-bootstrap.patch
+# GTK2 fix
+Patch20:    gtk2_fix.patch
 
-# Refer: https://bugs.chromium.org/p/chromium/issues/detail?id=749770
-# However this patch won't apply against current stable release.
-# In the meantime, reverse the commit that broke it :-/
-# https://chromium.googlesource.com/chromium/src/+/8d1845c2267b05df565fa33e3c5e2b0e242a21cc%5E%21/#F0
-Patch22:    chromium-fix-gtk2-build.patch
+# Misc. Gentoo fixes
+Patch24:    chromium-webrtc-r0.patch
+Patch25:	chromium-clang-r1.patch
 
+# Misc. openSuse fixes
+Patch26:    chromium-prop-codecs.patch
+Patch27:    chromium-non-void-return.patch
 
 ExclusiveArch: armv7hl x86_64
 
