@@ -465,6 +465,9 @@ cd %{_builddir}/chromium-%{version}/
 %if %{with clang}
 export CC=clang CXX=clang++
 %endif
+export AR=ar NM=nm
+export LDFLAGS='%{__global_ldflags}'
+
 # Re-configure bundled ffmpeg
 echo "Configuring bundled ffmpeg..."
 pushd third_party/ffmpeg
