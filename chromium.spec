@@ -759,6 +759,21 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Fri Dec 22 2017 Vaughan Agrez <devel at agrez dot net> 63.0.3239.108-1
+- Update to 63.0.3239.108
+- Drop Sources 1, 3 & 4 (we don't use / need them)
+- Add, drop, refactor patches
+- Update provides/requires
+- Remove unsupported system clang/lld flags
+- Disable debug package
+- Don't split out ffmpeg lib
+- Update build conditionals
+- Update bundle/unbundled libs
+- Re-configure ffmpeg at build time
+- Export system AR NM & LDFLAGS
+- Try to disable wayland support
+- Update chromium build flags/switches
+
 * Sat Aug 05 2017 Vaughan Agrez <devel at agrez dot net> 60.0.3112.90-1
 - Update to 60.0.3112.90
 - Drop patch21 (fixed upstream)
