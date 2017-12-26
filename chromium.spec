@@ -16,6 +16,12 @@
 # Use gcc instead of clang (default compiler is clang)
 %bcond_without clang
 
+%if 0
+%bcond_without system_libvpx
+%else
+%bcond_with system_libvpx
+%endif
+
 %if 0%{?fedora} < 26
 %bcond_without system_jinja2
 %else
@@ -23,7 +29,7 @@
 %endif
 
 # markupsafe
-%bcond_with system_markupsafe
+%bcond_without system_markupsafe
 
 # https://github.com/dabeaz/ply/issues/66
 %if 0%{?fedora} >= 24
@@ -35,21 +41,16 @@
 # Chromium breaks on wayland, hidpi, and colors with gtk3 enabled.
 %bcond_with _gkt3
 
-# The libxml_utils code depends on the specific bundled libxml checkout
-# which is not compatible with the current code in the Fedora package as of
-# 2017-06-08.
-%if 0
+# Require libxml2 > 2.9.4 for XML_PARSE_NOXXE
+%if 0%{?fedora} >= 27
 %bcond_without system_libxml2
 %else
 %bcond_with system_libxml2
 %endif
 
-# Requires >= harfbuzz 1.4.2
-%if 0%{fedora} < 26
+# Require harfbuzz >= 1.4.2 for hb_variation_t
 %bcond_with system_harfbuzz
-%else
-%bcond_without system_harfbuzz
-%endif
+
 
 Name:       chromium
 Version:    63.0.3239.108
@@ -136,6 +137,9 @@ BuildRequires: harfbuzz-devel
 %endif
 BuildRequires: libjpeg-turbo-devel
 BuildRequires: libpng-devel
+%if %{with system_libvpx}
+BuildRequires: libvpx-devel
+%endif
 BuildRequires: libwebp-devel
 BuildRequires: pkgconfig(libxslt)
 %if %{with system_libxml2}
@@ -215,12 +219,19 @@ Remote desktop support for google-chrome & chromium.
 %prep
 %autosetup -n chromium-%{version} -p1
 
+%if %{with system_markupsafe}
+pushd third_party/
+rm -rf markupsafe/
+ln -sf %{python2_sitearch}/markupsafe/ markupsafe
+popd
+%else
 pushd third_party
 rm -rf markupsafe/
 git clone --depth 1 https://github.com/pallets/markupsafe.git
 cp -f $PWD/markupsafe/markupsafe/*.py $PWD/markupsafe/
 cp -f $PWD/markupsafe/markupsafe/*.c $PWD/markupsafe/
 popd
+%endif
 
 # node fix
 %ifarch x86_64
@@ -313,11 +324,13 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/libsecret \
     third_party/libsrtp \
     third_party/libudev \
+%if !%{with system_libvpx}
     third_party/libvpx \
     third_party/libvpx/source/libvpx/third_party/googletest \
     third_party/libvpx/source/libvpx/third_party/libwebm \
     third_party/libvpx/source/libvpx/third_party/libyuv \
     third_party/libvpx/source/libvpx/third_party/x86inc \
+%endif
     third_party/libwebm \
 %if %{with system_libxml2}
     third_party/libxml/chromium \
@@ -328,6 +341,9 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/libyuv \
     third_party/lss \
     third_party/lzma_sdk \
+%if !%{with system_markupsafe}
+    third_party/markupsafe \
+%endif
     third_party/mesa \
     third_party/modp_b64 \
     third_party/mt19937ar \
