@@ -59,7 +59,7 @@ Summary:    A WebKit (Blink) powered web browser
 Group:      Applications/Internet
 License:    BSD and LGPLv2+
 URL:        https://www.chromium.org
-Vendor:     URPMS
+Vendor:     Fedberry
 Source0:    https://commondatastorage.googleapis.com/chromium-browser-official/chromium-%{version}.tar.xz
 Source1:    chromium-latest.py
 %if %{with remote_desktop}
