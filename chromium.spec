@@ -4,7 +4,7 @@
 
 # We don't want any libs in these directories to generate Provides
 %global __provides_exclude_from %{chromiumdir}/.*\\.so|%{chromiumdir}/lib/.*\\.so
-%global private_libs libEGL|libffmpeg|libGLESv2|libVkLayer_core_validation|libVkLayer_swapchain|libVkLayer_object_tracker|libVkLayer_threading|libVkLayer_parameter_validation|libVkLayer_unique_objects
+%global private_libs libEGL|libGLESv2|libVkLayer_core_validation|libVkLayer_swapchain|libVkLayer_object_tracker|libVkLayer_threading|libVkLayer_parameter_validation|libVkLayer_unique_objects
 %global __requires_exclude ^(%{private_libs})\\.so
 
 # Generally chromium is a monster if you compile the source code, enabling all; and takes hours compiling; common users doesn't need all tools.
@@ -169,7 +169,6 @@ Chromium is an open-source web browser, powered by WebKit (Blink).
 
 %package libs
 Summary: Shared libraries used by chromium (and chrome-remote-desktop)
-Requires: %{name}-libs-media%{_isa} = %{version}-%{release}
 Provides: %{name}-libs%{_isa} = %{version}-%{release}
 Provides: chromium-libs >= 60
 Provides: bundled(mesa) = 9.0.3
@@ -179,6 +178,7 @@ Provides: bundled(libVkLayer_object_tracker)
 Provides: bundled(libVkLayer_threading)
 Provides: bundled(libVkLayer_parameter_validation)
 Provides: bundled(libVkLayer_unique_objects)
+Obsoletes: %{name}-libs-media < 63
 
 %description libs
 Shared libraries used by chromium (and chrome-remote-desktop).
@@ -196,18 +196,6 @@ JavaScript execution, and more. ChromeDriver is a standalone server which
 implements WebDriver's wire protocol for Chromium. It is being developed by
 members of the Chromium and WebDriver teams.
 %endif
-
-%package libs-media
-Summary: Chromium media libraries built with all possible codecs
-Provides: %{name}-libs-media%{_isa} = %{version}-%{release}
-Provides: chromium-libs-media >= 60
-Provides: bundled(ffmpeg) = 2.6
-
-%description libs-media
-Chromium media libraries built with all possible codecs. Chromium is an
-open-source web browser, powered by WebKit (Blink). This package replaces
-the default chromium-libs-media package, which is limited in what it
-can include.
 
 %if %{with remote_desktop}
 %package -n chrome-remote-desktop
@@ -471,7 +459,6 @@ _flags+=(
     'google_default_client_secret="kdloedMFGdGla2P1zacGjAQh"'
     'is_debug=false'
     'is_component_build=false'
-    'is_component_ffmpeg=true'
     'linux_use_bundled_binutils=false'
     'proprietary_codecs=true'
     'remove_webcore_debug_symbols=true'
@@ -696,7 +683,6 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromiumdir}/lib*.so*
 %exclude %{chromiumdir}/libwidevinecdm.so
 %exclude %{chromiumdir}/libwidevinecdmadapter.so
-%exclude %{chromiumdir}/libffmpeg.so
 
 %if %{with devel_tools}
 %files chromedriver
@@ -705,9 +691,6 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{_bindir}/%{name}-chromedriver
 %{chromiumdir}/chromedriver
 %endif
-
-%files libs-media
-%{chromiumdir}/libffmpeg.so*
 
 %if %{with remote_desktop}
 %files -n chrome-remote-desktop
