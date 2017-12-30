@@ -739,7 +739,7 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
-* Fri Dec 22 2017 Vaughan Agrez <devel at agrez dot net> 63.0.3239.108-1
+* Wed Dec 27 2017 Vaughan Agrez <devel at agrez dot net> 63.0.3239.108-1
 - Update to 63.0.3239.108
 - Drop Sources 1, 3 & 4 (we don't use / need them)
 - Add, drop, refactor patches
