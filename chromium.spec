@@ -472,19 +472,6 @@ export CC=clang CXX=clang++
 export AR=ar NM=nm
 export LDFLAGS='%{__global_ldflags}'
 
-# Re-configure bundled ffmpeg
-echo "Configuring bundled ffmpeg..."
-pushd third_party/ffmpeg
-%ifarch armv7hl
-chromium/scripts/build_ffmpeg.py linux arm --branding Chrome
-%else
-chromium/scripts/build_ffmpeg.py linux x64 --branding Chrome
-%endif
-chromium/scripts/copy_config.sh
-chromium/scripts/generate_gn.py
-popd
-
-
 
 _flags+=(
     'enable_google_now=false'
@@ -766,7 +753,6 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 - Don't split out ffmpeg lib
 - Update build conditionals
 - Update bundle/unbundled libs
-- Re-configure ffmpeg at build time
 - Export system AR NM & LDFLAGS
 - Try to disable wayland support
 - Update chromium build flags/switches
