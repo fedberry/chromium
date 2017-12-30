@@ -232,11 +232,8 @@ popd
 %endif
 
 # node fix
-%ifarch x86_64
 mkdir -p third_party/node/linux/node-linux-x64/bin
 ln -s /usr/bin/node third_party/node/linux/node-linux-x64/bin/node
-%endif
-
 
 %if %{with remote_desktop}
 # Fix hardcoded path in remoting code
