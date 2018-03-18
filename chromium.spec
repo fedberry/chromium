@@ -51,6 +51,10 @@
 # Require harfbuzz >= 1.4.2 for hb_variation_t
 %bcond_with system_harfbuzz
 
+# Jumbo / Unity builds
+# https://chromium.googlesource.com/chromium/src/+/lkcr/docs/jumbo.md
+%bcond_without jumbo_unity
+
 %global majorversion 64
 
 Name:       chromium
@@ -533,6 +537,10 @@ _flags+=(
     'use_glib=true'
     'use_gio=true'
     'use_gtk3=false'
+%endif
+%if %{with jumbo_unity}
+    'use_jumbo_build=true'
+    'jumbo_file_merge_limit=100'
 %endif
 )
 
