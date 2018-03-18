@@ -103,7 +103,12 @@ BuildRequires: ninja-build, bison, gperf, hwdata
 BuildRequires: libgcc, glibc
 BuildRequires: libatomic
 BuildRequires: libcap-devel, cups-devel, minizip-devel, alsa-lib-devel
-BuildRequires: pkgconfig(gtk+-2.0), pkgconfig(libexif), pkgconfig(nss)
+BuildRequires: pkgconfig(libexif), pkgconfig(nss)
+%if %{with _gtk3}
+BuildRequires: pkgconfig(gtk+-3.0)
+%else
+BuildRequires: pkgconfig(gtk+-2.0)
+%endif
 BuildRequires: pkgconfig(xtst), pkgconfig(xscrnsaver)
 BuildRequires: pkgconfig(dbus-1), pkgconfig(libudev)
 BuildRequires: pkgconfig(gnome-keyring-1)
@@ -146,12 +151,12 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 BuildRequires: pam-devel
 BuildRequires: systemd
-BuildRequires: pkgconfig(gtk+-3.0) 
 BuildRequires: git
 BuildRequires: nodejs
 BuildRequires: libdrm-devel
 BuildRequires: mesa-libGL-devel
 BuildRequires: mesa-libEGL-devel
+BuildRequires: libva-devel
 BuildRequires: vulkan-devel
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
