@@ -51,9 +51,10 @@
 # Require harfbuzz >= 1.4.2 for hb_variation_t
 %bcond_with system_harfbuzz
 
+%global majorversion 64
 
 Name:       chromium
-Version:    63.0.3239.108
+Version:    %{majorversion}.0.3282.140
 Release:    1%{?dist}
 Summary:    A WebKit (Blink) powered web browser
 Group:      Applications/Internet
@@ -164,7 +165,7 @@ Requires: hicolor-icon-theme
 Requires: re2
 Requires: %{name}-libs = %{version}-%{release}
 
-Provides: chromium >= 63
+Provides: chromium >= %{majorversion}
 
 %description
 Chromium is an open-source web browser, powered by WebKit (Blink).
@@ -172,7 +173,7 @@ Chromium is an open-source web browser, powered by WebKit (Blink).
 %package libs
 Summary: Shared libraries used by chromium (and chrome-remote-desktop)
 Provides: %{name}-libs%{_isa} = %{version}-%{release}
-Provides: chromium-libs >= 63
+Provides: chromium-libs >= %{majorversion}
 Provides: bundled(mesa) = 9.0.3
 Provides: bundled(libVkLayer_core_validation)
 Provides: bundled(libVkLayer_swapchain)
@@ -180,7 +181,7 @@ Provides: bundled(libVkLayer_object_tracker)
 Provides: bundled(libVkLayer_threading)
 Provides: bundled(libVkLayer_parameter_validation)
 Provides: bundled(libVkLayer_unique_objects)
-Obsoletes: %{name}-libs-media < 63
+Obsoletes: %{name}-libs-media < %{majorversion}
 
 %description libs
 Shared libraries used by chromium (and chrome-remote-desktop).
@@ -189,7 +190,7 @@ Shared libraries used by chromium (and chrome-remote-desktop).
 %package chromedriver
 Summary: WebDriver for Google Chrome/Chromium
 Group: Development/Libraries
-Provides: chromedriver >= 63
+Provides: chromedriver >= %{majorversion}
 
 %description chromedriver
 WebDriver is an open source tool for automated testing of webapps across many
