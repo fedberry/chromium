@@ -106,7 +106,7 @@ Patch25:	chromium-clang-r1.patch
 Patch26:    chromium-prop-codecs.patch
 Patch27:    chromium-non-void-return.patch
 
-ExclusiveArch: armv7hl x86_64
+ExclusiveArch: armv7hl x86_64 i686
 
 BuildRequires: clang, llvm, lld
 BuildRequires: ninja-build, bison, gperf, hwdata
@@ -514,12 +514,14 @@ _flags+=(
 %ifarch x86_64
     'system_libdir="lib64"'
 %endif
+%ifnarch x86_64
+    'target_extra_ldflags="-Wl,--no-keep-memory -Wl,--reduce-memory-overheads"'
+%endif
 %ifarch armv7hl
     'target_cpu="arm"'
     'arm_optionally_use_neon=false'
     'arm_use_neon=false'
     'arm_use_thumb=true'
-    'target_extra_ldflags="-Wl,--no-keep-memory -Wl,--reduce-memory-overheads"'
     'use_libpci=false'
 %endif
 %if %{with clang}
