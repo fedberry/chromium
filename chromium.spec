@@ -581,7 +581,7 @@ jobs=$(expr $(grep -c ^processor /proc/cpuinfo))
 
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{chromiumdir}/locales
-#mkdir -p %{buildroot}%{_mandir}/man1
+mkdir -p %{buildroot}%{_mandir}/man1
 mkdir -p %{buildroot}%{_datadir}/appdata
 mkdir -p %{buildroot}%{_datadir}/applications
 mkdir -p %{buildroot}%{_datadir}/gnome-control-center/default-apps
@@ -592,7 +592,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE11}
 install -m 644 %{SOURCE12} %{buildroot}%{_datadir}/gnome-control-center/default-apps/
 appstream-util validate-relax --nonet %{SOURCE13}
 install -m 644 %{SOURCE13} %{buildroot}%{_datadir}/appdata/
-#install -m 644 out/Release/chrome.1 %{buildroot}%{_mandir}/man1/%{name}.1
+sed -e "s|@@MENUNAME@@|Chromium|g" -e "s|@@PACKAGE@@|chromium|g" \
+    chrome/app/resources/manpage.1.in > chrome.1
+install -m 644 chrome.1 %{buildroot}%{_mandir}/man1/%{name}-browser.1
 install -m 755 out/Release/chrome %{buildroot}%{chromiumdir}/chromium
 
 %if %{with devel_tools}
@@ -710,7 +712,7 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{_datadir}/icons/hicolor/64x64/apps/chromium.png
 %{_datadir}/icons/hicolor/128x128/apps/chromium.png
 %{_datadir}/icons/hicolor/256x256/apps/chromium.png
-#%%{_mandir}/man1/%%{name}.1.gz
+%{_mandir}/man1/%{name}-browser.1.gz
 %dir %{chromiumdir}
 %{chromiumdir}/chromium
 %if %{with devel_tools}
