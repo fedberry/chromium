@@ -10,17 +10,13 @@
 # Generally chromium is a monster if you compile the source code, enabling all; and takes hours compiling; common users doesn't need all tools.
 %bcond_without devel_tools
 
-# Chromium users doesn't need chrome-remote-desktop
+# Chromium users don't need chrome-remote-desktop
 %bcond_without remote_desktop
 
 # Use gcc instead of clang (default compiler is clang)
 %bcond_without clang
 
-%if 0
-%bcond_without system_libvpx
-%else
 %bcond_with system_libvpx
-%endif
 
 %if 0%{?fedora} < 26
 %bcond_without system_jinja2
@@ -29,16 +25,13 @@
 %endif
 
 # markupsafe
-%bcond_without system_markupsafe
+%bcond_with system_markupsafe
 
 # https://github.com/dabeaz/ply/issues/66
-%if 0%{?fedora} >= 24
 %bcond_without system_ply
-%else
-%bcond_with system_ply
-%endif
 
-# Chromium breaks on wayland, hidpi, and colors with gtk3 enabled.
+# Chromium used to break on wayland, hidpi, and colors with gtk3 enabled.
+# Hopefully it does not anymore.
 %bcond_with _gkt3
 
 # Require libxml2 > 2.9.4 for XML_PARSE_NOXXE
