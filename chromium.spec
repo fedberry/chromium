@@ -243,6 +243,12 @@ sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/d
 # xlocale.h is gone in >= F26
 sed -r -i 's/xlocale.h/locale.h/' buildtools/third_party/libc++/trunk/include/__locale
 
+# /usr/bin/python will be removed or switched to Python 3 in the future f28
+find . -name "*.py" |xargs sed -i 's|/usr/bin/env python|/usr/bin/env python2|g'
+
+# https://fedoraproject.org/wiki/Changes/Avoid_usr_bin_python_in_RPM_Build#Quick_Opt-Out
+export PYTHON_DISALLOW_AMBIGUOUS_VERSION=0
+
 %if %{with clang}
 # Remove compiler flags not supported by Fedora's system clang
 sed -i \
