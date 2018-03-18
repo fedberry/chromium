@@ -246,6 +246,7 @@ sed -i \
 -e '/"-Wno-null-pointer-arithmetic"/d' \
 -e '/"-Wno-tautological-unsigned-zero-compare"/d' \
 -e '/"-Wno-tautological-unsigned-enum-zero-compare"/d' \
+-e '/"-Wno-tautological-constant-compare"/d' \
 build/config/compiler/BUILD.gn
 
 # Remove ldflags not supported by Fedora's system lld
@@ -288,6 +289,7 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/angle/src/third_party/libXNVCtrl \
     third_party/angle/src/third_party/trace_event \
     third_party/boringssl \
+    third_party/boringssl/src/third_party/fiat \
     third_party/blink \
     third_party/breakpad \
     third_party/breakpad/breakpad/src/third_party/curl \
@@ -304,7 +306,6 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/catapult/tracing/third_party/oboe \
     third_party/catapult/tracing/third_party/pako \
     third_party/ced \
-    third_party/cld_2 \
     third_party/cld_3 \
     third_party/crc32c \
     third_party/cros_system_api \
@@ -353,6 +354,7 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/markupsafe \
 %endif
     third_party/mesa \
+    third_party/metrics_proto \
     third_party/modp_b64 \
     third_party/mt19937ar \
     third_party/openh264 \
