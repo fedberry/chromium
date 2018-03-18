@@ -560,7 +560,7 @@ sed -i 's|arm-linux-gnueabihf-||g' build/toolchain/linux/BUILD.gn
 
 ./tools/gn/bootstrap/bootstrap.py -v --gn-gen-args "${_flags[*]}"
 
-./out/Release/gn gen --args="${_flags[*]}" out/Release 
+./out/Release/gn gen --args="${_flags[*]}" out/Release
 
 # Set jobs to number of cores less 1
 jobs=$(expr $(grep -c ^processor /proc/cpuinfo))
@@ -578,7 +578,6 @@ jobs=$(expr $(grep -c ^processor /proc/cpuinfo))
 
 
 %install
-
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{chromiumdir}/locales
 mkdir -p %{buildroot}%{_mandir}/man1
@@ -639,6 +638,7 @@ cp -a out/Release/remote_assistance_host %{buildroot}%{crd_path}/remote-assistan
 cp -a out/Release/remoting_locales %{buildroot}%{crd_path}/
 cp -a out/Release/remoting_me2me_host %{buildroot}%{crd_path}/chrome-remote-desktop-host
 cp -a out/Release/remoting_start_host %{buildroot}%{crd_path}/start-host
+cp -a out/Release/remoting_user_session %{buildroot}%{crd_path}/user-session
 
 # chromium
 mkdir -p %{buildroot}%{_sysconfdir}/chromium/remoting_native_messaging_host
@@ -754,11 +754,21 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{_sysconfdir}/opt/chrome/
 %{crd_path}/remoting_locales/
 %{crd_path}/start-host
+%{crd_path}/user-session
 %{_unitdir}/chrome-remote-desktop.service
 /var/lib/chrome-remote-desktop/
 %endif
 
 %changelog
+* Wed Mar 14 2018 Vaughan Agrez <devel at agrez dot net> 64.0.3282.140-1
+- Update to 64.0.3282.140 release
+- Update patches
+- Ensure python2 is used
+- Enable Jumbo / Unity builds
+- Add/use %%global majorversion
+- Re-enable i686 build support
+- Fix install of man page
+
 * Wed Dec 27 2017 Vaughan Agrez <devel at agrez dot net> 63.0.3239.108-1
 - Update to 63.0.3239.108
 - Drop Sources 1, 3 & 4 (we don't use / need them)
