@@ -563,7 +563,7 @@ sed -i 's|arm-linux-gnueabihf-||g' build/toolchain/linux/BUILD.gn
 ./out/Release/gn gen --args="${_flags[*]}" out/Release 
 
 # Set jobs to number of cores less 1
-jobs=$(expr $(grep -c ^processor /proc/cpuinfo) - 1)
+jobs=$(expr $(grep -c ^processor /proc/cpuinfo))
 
 %if %{with devel_tools}
 %__ninja -C out/Release -v chrome chrome_sandbox chromedriver widevinecdmadapter -j$jobs
