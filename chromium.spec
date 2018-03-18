@@ -444,6 +444,10 @@ v8/src/third_party/valgrind
     yasm \
     zlib
 
+
+# Fix usb.ids location
+sed -i 's|//third_party/usb_ids|/usr/share/hwdata|g' device/usb/BUILD.gn
+
 # Fix references to ninja
 sed -i "s|'ninja'|'ninja-build'|" tools/gn/bootstrap/bootstrap.py
 sed -i 's|//third_party/usb_ids|/usr/share/hwdata|g' device/usb/BUILD.gn
