@@ -1,5 +1,7 @@
---- a/chrome/browser/ui/libgtkui/gtk_ui.h	2017-10-17 13:10:32.000000000 -0600
-+++ b/chrome/browser/ui/libgtkui/gtk_ui-new.h	2017-10-24 15:06:06.769629215 -0600
+diff --git a/chrome/browser/ui/libgtkui/gtk_ui.h.orig b/chrome/browser/ui/libgtkui/gtk_ui.h
+index 3048cf8..767f07e 100644
+--- a/chrome/browser/ui/libgtkui/gtk_ui.h.orig
++++ b/chrome/browser/ui/libgtkui/gtk_ui.h
 @@ -17,6 +17,7 @@
  #include "ui/gfx/color_utils.h"
  #include "ui/views/linux_ui/linux_ui.h"
@@ -8,7 +10,7 @@
  
  typedef struct _GParamSpec GParamSpec;
  typedef struct _GtkStyle GtkStyle;
-@@ -25,7 +26,6 @@
+@@ -25,7 +26,6 @@ typedef struct _GtkWidget GtkWidget;
  namespace libgtkui {
  class Gtk2KeyBindingsHandler;
  class DeviceScaleFactorObserver;

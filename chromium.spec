@@ -90,17 +90,14 @@ Patch2:     chromium-parallel.patch
 # Add a patch from Fedora to fix GN build
 # http://pkgs.fedoraproject.org/cgit/rpms/chromium.git/commit/?id=0df9641
 Patch10:    chromium-last-commit-position.patch
-Patch11:    chromium-safe-math-gcc.patch
 
-# Add patches from Fedora to fix building with GCC 7
-Patch12:    chromium-blink-fpermissive.patch
-
-# GTK2 fix
-Patch20:    gtk2_fix.patch
+# GTK2 fixes
+Patch20:    fix-gtk2-namespace.patch
+Patch21:    fix-nav-button-layout.patch
 
 # Misc. Gentoo fixes
-Patch24:    chromium-webrtc-r0.patch
-Patch25:	chromium-clang-r1.patch
+Patch24:    chromium-gn-r0.patch
+Patch25:	chromium-clang-r2.patch
 
 # Misc. openSuse fixes
 Patch26:    chromium-prop-codecs.patch
