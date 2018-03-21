@@ -85,12 +85,14 @@ Patch2:     chromium-parallel.patch
 Patch10:    chromium-last-commit-position.patch
 
 # GTK2 fixes
-Patch20:    fix-gtk2-namespace.patch
-Patch21:    fix-nav-button-layout.patch
+Patch20:    chromium-gtk2-fix-build.patch
 
 # Misc. Gentoo fixes
-Patch24:    chromium-gn-r0.patch
-Patch25:	chromium-clang-r2.patch
+# https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=1b8e99b
+Patch22:    chromium-clang-r2.patch
+Patch23:    chromium-clang-r3.patch
+Patch24:    chromium-stdint.patch
+Patch25:    chromium-math.h-r0.patch
 
 # Misc. openSuse fixes
 Patch26:    chromium-prop-codecs.patch
