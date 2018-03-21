@@ -284,6 +284,7 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     base/third_party/superfasthash \
     base/third_party/symbolize \
     base/third_party/valgrind \
+    v8/src/third_party/utf8-decoder \
     base/third_party/xdg_mime \
     base/third_party/xdg_user_dirs \
     chrome/third_party/mozilla_security_manager \
@@ -328,6 +329,7 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/fips181 \
     third_party/flatbuffers \
     third_party/flot \
+    third_party/fontconfig \
     third_party/google_input_tools \
     third_party/google_input_tools/third_party/closure_library \
     third_party/google_input_tools/third_party/closure_library/third_party/closure \
@@ -340,6 +342,7 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/khronos \
     third_party/leveldatabase \
     third_party/libaddressinput \
+    third_party/libaom \
     third_party/libjingle \
     third_party/libphonenumber \
     third_party/libsecret \
@@ -382,6 +385,7 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
     third_party/protobuf \
     third_party/protobuf/third_party/six \
     third_party/qcms \
+    third_party/s2cellid \
     third_party/sfntly \
     third_party/skia \
     third_party/skia/third_party/vulkan \
