@@ -519,7 +519,6 @@ _flags+=(
     'use_ozone=false'
     'use_pulseaudio=true'
     'use_sysroot=false'
-    'use_vulcanize=false'
 %ifarch x86_64
     'system_libdir="lib64"'
 %endif
@@ -551,7 +550,7 @@ _flags+=(
 %endif
 %if %{with jumbo_unity}
     'use_jumbo_build=true'
-    'jumbo_file_merge_limit=100'
+    'jumbo_file_merge_limit=20'
 %endif
 )
 
