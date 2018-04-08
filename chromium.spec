@@ -521,7 +521,7 @@ _flags+=(
     'use_gnome_keyring=false'
     'use_gold=false'
     'use_ozone=false'
-    'use_pulseaudio=true'
+    'use_pulseaudio=false'
     'use_sysroot=false'
 %ifarch x86_64
     'system_libdir="lib64"'
