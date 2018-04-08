@@ -765,6 +765,12 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Thu Apr 05 2018 Vaughan Agrez <devel at agrez dot net> 65.0.3325.181-1
+- Update to 65.0.3325.181 release
+- Update/refactor patches
+- Udate GN args
+- Disable pulseaudio support (for the moment)
+
 * Wed Mar 14 2018 Vaughan Agrez <devel at agrez dot net> 64.0.3282.140-1
 - Update to 64.0.3282.140 release
 - Update patches
