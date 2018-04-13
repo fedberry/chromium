@@ -247,7 +247,8 @@ sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/d
 sed -r -i 's/xlocale.h/locale.h/' buildtools/third_party/libc++/trunk/include/__locale
 
 # /usr/bin/python will be removed or switched to Python 3 in the future f28
-find . -name "*.py" |xargs sed -i 's|/usr/bin/env python|/usr/bin/env python2|g'
+#find . -name "*.py" |xargs sed -i 's|/usr/bin/env python|/usr/bin/env python2|g'
+find . -name '*.py' -exec sed -i -r 's|/usr/bin/python$|&2|g' {} +
 
 # https://fedoraproject.org/wiki/Changes/Avoid_usr_bin_python_in_RPM_Build#Quick_Opt-Out
 export PYTHON_DISALLOW_AMBIGUOUS_VERSION=0
@@ -274,7 +275,7 @@ sed -i 's/ || use_lld//' tools/v8_context_snapshot/BUILD.gn
 # fix the missing define (if not, fail build) (need upstream fix) (https://crbug.com/473866)
 sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/widevine/cdm/stub/widevine_cdm_version.h"
 
-./build/linux/unbundle/remove_bundled_libraries.py --do-remove \
+python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     buildtools/third_party/libc++ \
     third_party/icu \
     base/third_party/icu/ \
@@ -436,7 +437,7 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
 v8/src/third_party/valgrind
 
 
-./build/linux/unbundle/replace_gn_files.py --system-libraries \
+python2 build/linux/unbundle/replace_gn_files.py --system-libraries \
     flac \
     freetype \
     fontconfig \
@@ -567,7 +568,7 @@ _flags+=(
 sed -i 's|arm-linux-gnueabihf-||g' build/toolchain/linux/BUILD.gn
 %endif
 
-./tools/gn/bootstrap/bootstrap.py -v --gn-gen-args "${_flags[*]}"
+python2 tools/gn/bootstrap/bootstrap.py -v --gn-gen-args "${_flags[*]}"
 
 ./out/Release/gn gen --args="${_flags[*]}" out/Release
 
