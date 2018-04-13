@@ -128,6 +128,7 @@ BuildRequires: python2-markupsafe
 BuildRequires: python2-ply
 %endif
 BuildRequires: flac-devel
+BuildRequires: freetype-devel
 %if %{with system_harfbuzz}
 BuildRequires: harfbuzz-devel
 %endif
@@ -437,6 +438,8 @@ v8/src/third_party/valgrind
 
 ./build/linux/unbundle/replace_gn_files.py --system-libraries \
     flac \
+    freetype \
+    fontconfig \
     libdrm \
 %if %{with system_harfbuzz}
     harfbuzz-ng \
@@ -523,6 +526,7 @@ _flags+=(
     'use_ozone=false'
     'use_pulseaudio=false'
     'use_sysroot=false'
+    'use_system_freetype=true'
 %ifarch x86_64
     'system_libdir="lib64"'
 %endif
