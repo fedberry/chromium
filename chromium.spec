@@ -52,7 +52,7 @@
 
 Name:       chromium
 Version:    %{majorversion}.0.3325.181
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A WebKit (Blink) powered web browser
 Group:      Applications/Internet
 License:    BSD and LGPLv2+
@@ -770,6 +770,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Fri Apr 13 2018 Vaughan Agrez <devel at agrez dot net> 65.0.3325.181-2
+- Use system freetype / fontconfig
+- Misc python fixes
+
 * Thu Apr 05 2018 Vaughan Agrez <devel at agrez dot net> 65.0.3325.181-1
 - Update to 65.0.3325.181 release
 - Update/refactor patches
