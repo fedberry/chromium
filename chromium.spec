@@ -535,7 +535,9 @@ _flags+=(
     'google_default_client_id="811574891467.apps.googleusercontent.com"'
     'google_default_client_secret="kdloedMFGdGla2P1zacGjAQh"'
     'is_debug=false'
+    'is_desktop_linux=true'
     'is_component_build=false'
+    'is_official_build=true'
     'linux_use_bundled_binutils=false'
     'proprietary_codecs=true'
     'remove_webcore_debug_symbols=true'
@@ -561,9 +563,12 @@ _flags+=(
 %endif
 %ifarch armv7hl
     'target_cpu="arm"'
+    'arm_arch="armv7-a"'
+    'arm_float_abi="hard"'
     'arm_optionally_use_neon=false'
-    'arm_use_neon=false'
+    'arm_use_neon=true'
     'arm_use_thumb=true'
+    'arm_version=7'
     'use_libpci=false'
 %endif
 %if %{with clang}
@@ -584,7 +589,7 @@ _flags+=(
 %endif
 %if %{with jumbo_unity}
     'use_jumbo_build=true'
-    'jumbo_file_merge_limit=20'
+    'jumbo_file_merge_limit=10'
 %endif
 )
 
