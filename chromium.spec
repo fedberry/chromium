@@ -292,6 +292,11 @@ sed -i 's/ || use_lld//' tools/v8_context_snapshot/BUILD.gn
 # fix the missing define (if not, fail build) (need upstream fix) (https://crbug.com/473866)
 sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/widevine/cdm/stub/widevine_cdm_version.h"
 
+
+# Allow building against system libraries in official builds
+  sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' \
+    tools/generate_shim_headers/generate_shim_headers.py
+
 python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     buildtools/third_party/libc++ \
     third_party/icu \
