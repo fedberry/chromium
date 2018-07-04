@@ -109,6 +109,7 @@ Patch25:    chromium-math.h-r0.patch
 Patch26:    chromium-prop-codecs.patch
 Patch27:    chromium-non-void-return.patch
 
+
 ExclusiveArch: armv7hl x86_64 i686
 
 BuildRequires: clang, llvm, lld
@@ -180,14 +181,15 @@ Requires(postun): desktop-file-utils
 Requires: hicolor-icon-theme
 Requires: re2
 Requires: %{name}-libs = %{version}-%{release}
-
 %ifarch armv7hl
 Requires: raspberrypi-vc-libs
 %endif
 Provides: chromium >= %{majorversion}
 
+
 %description
 Chromium is an open-source web browser, powered by WebKit (Blink).
+
 
 %package libs
 Summary: Shared libraries used by chromium (and chrome-remote-desktop)
@@ -205,6 +207,7 @@ Obsoletes: %{name}-libs-media < %{majorversion}
 %description libs
 Shared libraries used by chromium (and chrome-remote-desktop).
 
+
 %if %{with devel_tools}
 %package chromedriver
 Summary: WebDriver for Google Chrome/Chromium
@@ -218,6 +221,7 @@ JavaScript execution, and more. ChromeDriver is a standalone server which
 implements WebDriver's wire protocol for Chromium. It is being developed by
 members of the Chromium and WebDriver teams.
 %endif
+
 
 %if %{with remote_desktop}
 %package -n chrome-remote-desktop
@@ -233,6 +237,8 @@ Requires: %{name}-libs%{_isa} = %{version}-%{release}
 %description -n chrome-remote-desktop
 Remote desktop support for google-chrome & chromium.
 %endif
+
+
 
 %prep
 %autosetup -n chromium-%{version} -p1
@@ -284,7 +290,6 @@ build/config/compiler/BUILD.gn
 # Remove ldflags not supported by Fedora's system lld
 sed -i 's/ || use_lld//' tools/v8_context_snapshot/BUILD.gn
 %endif
-
 
 ### build with widevine support
 
@@ -456,7 +461,7 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
 %if !%{with system_harfbuzz}
     third_party/harfbuzz-ng \
 %endif
-v8/src/third_party/valgrind
+    v8/src/third_party/valgrind
 
 
 python2 build/linux/unbundle/replace_gn_files.py --system-libraries \
@@ -488,7 +493,7 @@ sed -i "s|'ninja'|'ninja-build'|" tools/gn/bootstrap/bootstrap.py
 sed -i 's|//third_party/usb_ids|/usr/share/hwdata|g' device/usb/BUILD.gn
 
 %if %{with system_jinja2}
-rmdir third_party/jinja2 
+rmdir third_party/jinja2
 ln -s %{python2_sitelib}/jinja2 third_party/jinja2
 %endif
 
@@ -698,19 +703,14 @@ cp -a %{SOURCE2} %{buildroot}%{_unitdir}/
 sed -i 's|@@CRD_PATH@@|%{crd_path}|g' %{buildroot}%{_unitdir}/chrome-remote-desktop.service
 %endif
 
+
 %post
-touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 update-desktop-database &> /dev/null || :
+
 
 %postun
-if [ $1 -eq 0 ] ; then
-    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
 update-desktop-database &> /dev/null || :
 
-%posttrans
-gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %if %{with remote_desktop}
 %pre -n chrome-remote-desktop
@@ -725,6 +725,8 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %postun -n chrome-remote-desktop
 %systemd_postun_with_restart chrome-remote-desktop.service
 %endif
+
+
 
 %files
 %license LICENSE
@@ -788,6 +790,8 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{_unitdir}/chrome-remote-desktop.service
 /var/lib/chrome-remote-desktop/
 %endif
+
+
 
 %changelog
 * Fri Apr 13 2018 Vaughan Agrez <devel at agrez dot net> 65.0.3325.181-2
