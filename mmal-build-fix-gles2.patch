@@ -1,0 +1,26 @@
+From ed94de79e1be60ee2128bcf58facd7ac74f2f957 Mon Sep 17 00:00:00 2001
+Message-Id: <ed94de79e1be60ee2128bcf58facd7ac74f2f957.1529555056.git.devel@agrez.net>
+From: Vaughan Agrez <devel@agrez.net>
+Date: Thu, 21 Jun 2018 12:24:06 +0800
+Subject: [PATCH] mmal build fix
+
+---
+ gpu/command_buffer/client/gles2_interface.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/gpu/command_buffer/client/gles2_interface.h b/gpu/command_buffer/client/gles2_interface.h
+index 85aa954..b6f1ecf 100644
+--- a/gpu/command_buffer/client/gles2_interface.h
++++ b/gpu/command_buffer/client/gles2_interface.h
+@@ -5,7 +5,7 @@
+ #ifndef GPU_COMMAND_BUFFER_CLIENT_GLES2_INTERFACE_H_
+ #define GPU_COMMAND_BUFFER_CLIENT_GLES2_INTERFACE_H_
+ 
+-#include <GLES2/gl2.h>
++#include "third_party/khronos/GLES2/gl2.h"
+ 
+ #include "base/compiler_specific.h"
+ 
+-- 
+2.14.4
+

@@ -1,0 +1,126 @@
+From 23688c679a38b139c783b8574c56fbfdffa833b0 Mon Sep 17 00:00:00 2001
+Message-Id: <23688c679a38b139c783b8574c56fbfdffa833b0.1528252126.git.devel@agrez.net>
+From: Vaughan Agrez <devel@agrez.net>
+Date: Wed, 6 Jun 2018 10:28:39 +0800
+Subject: [PATCH] mmal build fixes for Fedberry
+
+---
+ chrome/BUILD.gn                      | 4 ++--
+ components/nacl/loader/BUILD.gn      | 4 ++--
+ components/viz/service/main/BUILD.gn | 4 ++--
+ media/BUILD.gn                       | 4 ++--
+ media/filters/BUILD.gn               | 6 +++---
+ services/ui/BUILD.gn                 | 4 ++--
+ services/viz/BUILD.gn                | 4 ++--
+ 7 files changed, 15 insertions(+), 15 deletions(-)
+
+diff --git a/chrome/BUILD.gn b/chrome/BUILD.gn
+index beedd03..97ac8f9 100644
+--- a/chrome/BUILD.gn
++++ b/chrome/BUILD.gn
+@@ -295,8 +295,8 @@ if (!is_android && !is_mac) {
+         # Add pi link stuff
+         # * is there a better place?
+         ldflags += [
+-         "-L$sysroot/opt/vc/lib",
+-         "-Wl,--rpath=/opt/vc/lib,--rpath-link=$sysroot/opt/vc/lib",
++         "-L$sysroot/usr/lib/vc",
++         "-Wl,--rpath=/usr/lib/vc,--rpath-link=$sysroot/usr/lib/vc",
+          "-Wl,--start-group", "-lbcm_host", "-lmmal", "-lmmal_util", "-lmmal_core", "-lmmal_vc_client", "-lvcos", "-lvcsm", "-lvchostif", "-lvchiq_arm", "-Wl,--end-group",
+         ]
+         if (symbol_level >= 2) {
+diff --git a/components/nacl/loader/BUILD.gn b/components/nacl/loader/BUILD.gn
+index bbf8d2f..69433ef 100644
+--- a/components/nacl/loader/BUILD.gn
++++ b/components/nacl/loader/BUILD.gn
+@@ -150,8 +150,8 @@ if (is_linux) {
+       # Add pi link stuff
+       # * is there a better place?
+       ldflags += [
+-       "-L$sysroot/opt/vc/lib",
+-       "-Wl,--rpath=/opt/vc/lib,--rpath-link=$sysroot/opt/vc/lib",
++       "-L$sysroot/usr/lib/vc",
++       "-Wl,--rpath=/usr/lib/vc,--rpath-link=$sysroot/usr/lib/vc",
+        "-Wl,--start-group", "-lbcm_host", "-lmmal", "-lmmal_util", "-lmmal_core", "-lmmal_vc_client", "-lvcos", "-lvcsm", "-lvchostif", "-lvchiq_arm", "-Wl,--end-group",
+       ]
+     }
+diff --git a/components/viz/service/main/BUILD.gn b/components/viz/service/main/BUILD.gn
+index 9c12d08..959224a 100644
+--- a/components/viz/service/main/BUILD.gn
++++ b/components/viz/service/main/BUILD.gn
+@@ -34,8 +34,8 @@ source_set("main") {
+   ]
+ 
+     ldflags = [
+-     "-L$sysroot/opt/vc/lib",
+-     "-Wl,--rpath=/opt/vc/lib,--rpath-link=$sysroot/opt/vc/lib",
++     "-L$sysroot/usr/lib/vc",
++     "-Wl,--rpath=/usr/lib/vc,--rpath-link=$sysroot/usr/lib/vc",
+      "-Wl,--start-group", "-lbcm_host", "-lmmal", "-lmmal_util", "-lmmal_core", "-lmmal_vc_client", "-lvcos", "-lvcsm", "-lvchostif", "-lvchiq_arm", "-Wl,--end-group",
+     ]
+ 
+diff --git a/media/BUILD.gn b/media/BUILD.gn
+index 7b69428..9fa9f02 100644
+--- a/media/BUILD.gn
++++ b/media/BUILD.gn
+@@ -121,8 +121,8 @@ component("media") {
+     # Add pi link stuff
+     # * is there a better place?
+     ldflags += [
+-     "-L$sysroot/opt/vc/lib",
+-     "-Wl,--rpath=/opt/vc/lib,--rpath-link=$sysroot/opt/vc/lib",
++     "-L$sysroot/usr/lib/vc",
++     "-Wl,--rpath=/usr/lib/vc,--rpath-link=$sysroot/usr/lib/vc",
+      "-Wl,--start-group", "-lbcm_host", "-lmmal", "-lmmal_util", "-lmmal_core", "-lmmal_vc_client", "-lvcos", "-lvcsm", "-lvchostif", "-lvchiq_arm", "-Wl,--end-group",
+     ]
+   }
+diff --git a/media/filters/BUILD.gn b/media/filters/BUILD.gn
+index bf1c732..dabd10a 100644
+--- a/media/filters/BUILD.gn
++++ b/media/filters/BUILD.gn
+@@ -219,9 +219,9 @@ source_set("filters") {
+       "mmal_video_decoder.h",
+     ]
+     include_dirs += [
+-      "$target_sysroot/opt/vc/include",
+-      "$target_sysroot/opt/vc/include/interface/vcos/pthreads",
+-      "$target_sysroot/opt/vc/include/interface/vmcs_host/linux",
++      "$target_sysroot/usr/include/vc",
++      "$target_sysroot/usr/include/vc/interface/vcos/pthreads",
++      "$target_sysroot/usr/include/vc/interface/vmcs_host/linux",
+     ]
+   }
+ }
+diff --git a/services/ui/BUILD.gn b/services/ui/BUILD.gn
+index 43414d5..5c88a5b 100644
+--- a/services/ui/BUILD.gn
++++ b/services/ui/BUILD.gn
+@@ -40,8 +40,8 @@ service("ui") {
+     # Add pi link stuff
+     # * is there a better place?
+     ldflags = [
+-     "-L$sysroot/opt/vc/lib",
+-     "-Wl,--rpath=/opt/vc/lib,--rpath-link=$sysroot/opt/vc/lib",
++     "-L$sysroot/usr/lib/vc",
++     "-Wl,--rpath=/usr/lib/vc,--rpath-link=$sysroot/usr/lib/vc",
+      "-Wl,--start-group", "-lbcm_host", "-lmmal", "-lmmal_util", "-lmmal_core", "-lmmal_vc_client", "-lvcos", "-lvcsm", "-lvchostif", "-lvchiq_arm", "-Wl,--end-group",
+     ]
+   }
+diff --git a/services/viz/BUILD.gn b/services/viz/BUILD.gn
+index 5611ba9..4afecbd 100644
+--- a/services/viz/BUILD.gn
++++ b/services/viz/BUILD.gn
+@@ -21,8 +21,8 @@ service("viz") {
+     # Add pi link stuff
+     # * is there a better place?
+     ldflags = [
+-     "-L$sysroot/opt/vc/lib",
+-     "-Wl,--rpath=/opt/vc/lib,--rpath-link=$sysroot/opt/vc/lib",
++     "-L$sysroot/usr/lib/vc",
++     "-Wl,--rpath=/usr/lib/vc,--rpath-link=$sysroot/usr/lib/vc",
+      "-Wl,--start-group", "-lbcm_host", "-lmmal", "-lmmal_util", "-lmmal_core", "-lmmal_vc_client", "-lvcos", "-lvcsm", "-lvchostif", "-lvchiq_arm", "-Wl,--end-group",
+     ]
+   }
+-- 
+2.14.4
+

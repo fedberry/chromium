@@ -82,6 +82,15 @@ Patch2:     chromium-parallel.patch
 
 # Change master_preferences path
 Patch3:     chromium-master-prefs-path.patch
+
+%ifarch armv7hl
+# Enable mmal hardware acceleration for RPi's
+Patch5:     v65.0.3325.212_mmal_2.15.patch
+# Fedberry mmal build fixes
+Patch6:     mmal-build-fixes.patch
+Patch7:     mmal-build-fix-gles2.patch
+%endif
+
 # Add a patch from Fedora to fix GN build
 # http://pkgs.fedoraproject.org/cgit/rpms/chromium.git/commit/?id=0df9641
 Patch10:    chromium-last-commit-position.patch
@@ -160,15 +169,21 @@ BuildRequires: git
 BuildRequires: nodejs
 BuildRequires: libdrm-devel
 BuildRequires: mesa-libGL-devel
-BuildRequires: mesa-libEGL-devel
-BuildRequires: libva-devel
-BuildRequires: vulkan-devel
+BuildRequires: pkgconfig(xcb-image)
+%ifarch armv7hl
+BuildRequires: raspberrypi-vc-libs-devel
+BuildRequires: raspberrypi-vc-static
+%endif
+
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
 Requires: hicolor-icon-theme
 Requires: re2
 Requires: %{name}-libs = %{version}-%{release}
 
+%ifarch armv7hl
+Requires: raspberrypi-vc-libs
+%endif
 Provides: chromium >= %{majorversion}
 
 %description
@@ -178,7 +193,7 @@ Chromium is an open-source web browser, powered by WebKit (Blink).
 Summary: Shared libraries used by chromium (and chrome-remote-desktop)
 Provides: %{name}-libs%{_isa} = %{version}-%{release}
 Provides: chromium-libs >= %{majorversion}
-Provides: bundled(mesa) = 9.0.3
+Provides: bundled(mesa)
 Provides: bundled(libVkLayer_core_validation)
 Provides: bundled(libVkLayer_swapchain)
 Provides: bundled(libVkLayer_object_tracker)
@@ -490,8 +505,6 @@ cd %{_builddir}/chromium-%{version}/
 export CC=clang CXX=clang++
 %endif
 export AR=ar NM=nm
-export LDFLAGS='%{__global_ldflags}'
-
 
 _flags+=(
     'enable_google_now=false'
