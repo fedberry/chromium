@@ -52,7 +52,7 @@
 
 Name:       chromium
 Version:    %{majorversion}.0.3325.181
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A WebKit (Blink) powered web browser
 Group:      Applications/Internet
 License:    BSD and LGPLv2+
@@ -799,6 +799,14 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 
 
 %changelog
+* Sun Jun 24 2018 Vaughan Agrez <devel at agrez dot net> 65.0.3325.181-3
+- Update chromium-wrapper
+- Enable mmal hardware acceleration for RPi's (Patch5)
+- Update GN args: 'arm_use_neon=true' & 'jumbo_file_merge_limit=10'
+- Add GN args: 'is_desktop_linux=true' & 'is_official_build=true'
+- Change master_preferences path (Patch3)
+- Update %%post scripts
+
 * Fri Apr 13 2018 Vaughan Agrez <devel at agrez dot net> 65.0.3325.181-2
 - Use system freetype / fontconfig
 - Misc python fixes
