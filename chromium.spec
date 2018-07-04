@@ -80,6 +80,8 @@ Patch1:     chromium-buildflags.patch
 # Respect specified number of parallel jobs while bootstrapping gn (Debian)
 Patch2:     chromium-parallel.patch
 
+# Change master_preferences path
+Patch3:     chromium-master-prefs-path.patch
 # Add a patch from Fedora to fix GN build
 # http://pkgs.fedoraproject.org/cgit/rpms/chromium.git/commit/?id=0df9641
 Patch10:    chromium-last-commit-position.patch
