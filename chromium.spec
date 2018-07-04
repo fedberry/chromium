@@ -66,7 +66,7 @@ Source2:    chrome-remote-desktop.service
 
 # The following two source files are copied and modified from
 # https://repos.fedorapeople.org/repos/spot/chromium/
-Source10:   chromium-wrapper.txt
+Source10:   chromium-wrapper
 Source11:   chromium-browser.desktop
 
 # The following two source files are copied verbatim from
