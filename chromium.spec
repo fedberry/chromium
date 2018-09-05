@@ -51,11 +51,11 @@
 # https://chromium.googlesource.com/chromium/src/+/lkcr/docs/jumbo.md
 %bcond_without jumbo_unity
 
-%global majorversion 65
+%global majorversion 66
 
 Name:       chromium
-Version:    %{majorversion}.0.3325.181
-Release:    3%{?dist}
+Version:    %{majorversion}.0.3359.181
+Release:    1%{?dist}
 Summary:    A WebKit (Blink) powered web browser
 Group:      Applications/Internet
 License:    BSD and LGPLv2+
@@ -154,7 +154,6 @@ BuildRequires: yasm
 BuildRequires: zlib-devel
 BuildRequires: pciutils-devel
 BuildRequires: speech-dispatcher-devel
-BuildRequires: pulseaudio-libs-devel
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 BuildRequires: pam-devel
@@ -512,10 +511,10 @@ export CC=clang CXX=clang++
 %endif
 export AR=ar NM=nm
 
+
 _flags+=(
     'enable_google_now=false'
     'enable_hangout_services_extension=false'
-    'enable_hotwording=false'
     'enable_iterator_debugging=false'
     'enable_nacl=false'
     'enable_nacl_nonsfi=false'
@@ -523,7 +522,6 @@ _flags+=(
     'enable_vulkan=false'
     'enable_wayland_server=false'
     'enable_widevine=true'
-    'exclude_unwind_tables=true'
     'fatal_linker_warnings=false'
     'ffmpeg_branding="Chrome"'
     'fieldtrial_testing_like_official_build=true'
@@ -624,14 +622,14 @@ mkdir -p %{buildroot}%{_datadir}/appdata
 mkdir -p %{buildroot}%{_datadir}/applications
 mkdir -p %{buildroot}%{_datadir}/gnome-control-center/default-apps
 sed -e "s|@LIBDIR@|%{_libdir}|" -e "s|@@BUILDTARGET@@|`cat /etc/redhat-release`|" \
-    %{SOURCE10} > chromium-wrapper
+%{SOURCE10} > chromium-wrapper
 install -m 755 chromium-wrapper %{buildroot}%{_bindir}/%{name}-browser
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE11}
 install -m 644 %{SOURCE12} %{buildroot}%{_datadir}/gnome-control-center/default-apps/
 appstream-util validate-relax --nonet %{SOURCE13}
 install -m 644 %{SOURCE13} %{buildroot}%{_datadir}/appdata/
 sed -e "s|@@MENUNAME@@|Chromium|g" -e "s|@@PACKAGE@@|chromium|g" \
-    chrome/app/resources/manpage.1.in > chrome.1
+chrome/app/resources/manpage.1.in > chrome.1
 install -m 644 chrome.1 %{buildroot}%{_mandir}/man1/%{name}-browser.1
 install -m 755 out/Release/chrome %{buildroot}%{chromiumdir}/chromium
 
@@ -641,24 +639,22 @@ install -m 755 out/Release/chromedriver %{buildroot}%{chromiumdir}/
 ln -s %{chromiumdir}/chromedriver %{buildroot}%{_bindir}/%{name}-chromedriver
 %endif
 
-# libicu
 install -m 644 out/Release/icudtl.dat %{buildroot}%{chromiumdir}/
-install -m 644 out/Release/natives_blob.bin %{buildroot}%{chromiumdir}/
-install -m 644 out/Release/snapshot_blob.bin %{buildroot}%{chromiumdir}/
+install -m 644 out/Release/*.bin %{buildroot}%{chromiumdir}/
 install -m 644 out/Release/*.pak %{buildroot}%{chromiumdir}/
 install -m 644 out/Release/*.so %{buildroot}%{chromiumdir}/
 install -m 644 out/Release/locales/*.pak %{buildroot}%{chromiumdir}/locales/
 for i in 16 32; do
     mkdir -p %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps
     install -m 644 chrome/app/theme/default_100_percent/chromium/product_logo_$i.png \
-        %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/chromium.png
+    %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/chromium.png
 done
 for i in 22 24 32 48 64 128 256; do
     if [ ${i} = 32 ]; then ext=xpm; else ext=png; fi
     if [ ${i} = 32 ]; then dir=linux/; else dir=; fi
     mkdir -p %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps
     install -m 644 chrome/app/theme/chromium/${dir}product_logo_$i.${ext} \
-        %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/chromium.${ext}
+    %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/chromium.${ext}
 done
 
 mkdir -p %{buildroot}/%{chromiumdir}/PepperFlash
@@ -681,12 +677,15 @@ cp -a out/Release/remoting_user_session %{buildroot}%{crd_path}/user-session
 
 # chromium
 mkdir -p %{buildroot}%{_sysconfdir}/chromium/remoting_native_messaging_host
+
 # google-chrome
 mkdir -p %{buildroot}%{_sysconfdir}/opt/chrome/
 cp -a out/Release/remoting/* %{buildroot}%{_sysconfdir}/chromium/remoting_native_messaging_host/
+
 for i in %{buildroot}%{_sysconfdir}/chromium/remoting_native_messaging_host/*.json; do
     sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' $i
 done
+
 pushd %{buildroot}%{_sysconfdir}/opt/chrome/
 ln -s ../../chromium/remoting_native_messaging_host remoting_native_messaging_host
 popd
@@ -711,7 +710,6 @@ sed -i 's|@@CRD_PATH@@|%{crd_path}|g' %{buildroot}%{_unitdir}/chrome-remote-desk
 %post
 update-desktop-database &> /dev/null || :
 
-
 %postun
 update-desktop-database &> /dev/null || :
 
@@ -729,7 +727,6 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %postun -n chrome-remote-desktop
 %systemd_postun_with_restart chrome-remote-desktop.service
 %endif
-
 
 
 %files
@@ -750,32 +747,33 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{_datadir}/icons/hicolor/256x256/apps/chromium.png
 %{_mandir}/man1/%{name}-browser.1.gz
 %dir %{chromiumdir}
+%dir %{chromiumdir}/PepperFlash/
 %{chromiumdir}/chromium
 %if %{with devel_tools}
 %{chromiumdir}/chromedriver
 %{chromiumdir}/chrome-sandbox
 %endif
+%if !%{with system_libicu}
 %{chromiumdir}/icudtl.dat
-
-%{chromiumdir}/natives_blob.bin
-%{chromiumdir}/snapshot_blob.bin
+%endif
+%{chromiumdir}/*.bin
 %{chromiumdir}/*.pak
 %dir %{chromiumdir}/locales
 %{chromiumdir}/locales/*.pak
-%dir %{chromiumdir}/PepperFlash/
+
 
 %files libs
 %{chromiumdir}/lib*.so*
 %exclude %{chromiumdir}/libwidevinecdm.so
 %exclude %{chromiumdir}/libwidevinecdmadapter.so
 
+
 %if %{with devel_tools}
 %files chromedriver
-%doc AUTHORS
-%license LICENSE
 %{_bindir}/%{name}-chromedriver
 %{chromiumdir}/chromedriver
 %endif
+
 
 %if %{with remote_desktop}
 %files -n chrome-remote-desktop
