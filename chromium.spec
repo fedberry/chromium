@@ -95,20 +95,9 @@ Patch7:     mmal-build-fix-gles2.patch
 # http://pkgs.fedoraproject.org/cgit/rpms/chromium.git/commit/?id=0df9641
 Patch10:    chromium-last-commit-position.patch
 
-# GTK2 fixes
-Patch20:    chromium-gtk2-fix-build.patch
-
 # Misc. Gentoo fixes
 # https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=1b8e99b
 Patch22:    chromium-clang-r2.patch
-Patch23:    chromium-clang-r3.patch
-Patch24:    chromium-stdint.patch
-Patch25:    chromium-math.h-r0.patch
-
-# Misc. openSuse fixes
-Patch26:    chromium-prop-codecs.patch
-Patch27:    chromium-non-void-return.patch
-
 
 ExclusiveArch: armv7hl x86_64 i686
 
