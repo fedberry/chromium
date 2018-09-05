@@ -41,8 +41,11 @@
 %bcond_with system_libxml2
 %endif
 
-# Require harfbuzz >= 1.4.2 for hb_variation_t
+%if 0%{?fedora} >= 28
+%bcond_without system_harfbuzz
+%else
 %bcond_with system_harfbuzz
+%endif
 
 # Jumbo / Unity builds
 # https://chromium.googlesource.com/chromium/src/+/lkcr/docs/jumbo.md
@@ -352,6 +355,9 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/google_input_tools \
     third_party/google_input_tools/third_party/closure_library \
     third_party/google_input_tools/third_party/closure_library/third_party/closure \
+%if !%{with system_harfbuzz}
+    third_party/harfbuzz-ng \
+%endif
     third_party/hunspell \
     third_party/iccjpeg \
 %if !%{with system_jinja2}
@@ -545,6 +551,9 @@ _flags+=(
     'use_pulseaudio=false'
     'use_sysroot=false'
     'use_system_freetype=true'
+%if %{with system_harfbuzz}
+    'use_system_harfbuzz=true'
+%endif
 %ifarch x86_64
     'system_libdir="lib64"'
 %endif
