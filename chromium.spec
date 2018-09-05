@@ -308,6 +308,8 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     v8/src/third_party/utf8-decoder \
     base/third_party/xdg_mime \
     base/third_party/xdg_user_dirs \
+    buildtools/third_party/libc++ \
+    buildtools/third_party/libc++abi \
     chrome/third_party/mozilla_security_manager \
     courgette/third_party \
     native_client/src/third_party/dlmalloc \
@@ -323,9 +325,14 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/angle/src/third_party/compiler \
     third_party/angle/src/third_party/libXNVCtrl \
     third_party/angle/src/third_party/trace_event \
+    third_party/angle/third_party/glslang \
+    third_party/angle/third_party/spirv-headers \
+    third_party/angle/third_party/spirv-tools \
+    third_party/angle/third_party/vulkan-validation-layers \
+    third_party/blanketjs \
+    third_party/blink \
     third_party/boringssl \
     third_party/boringssl/src/third_party/fiat \
-    third_party/blink \
     third_party/breakpad \
     third_party/breakpad/breakpad/src/third_party/curl \
     third_party/brotli \
@@ -346,11 +353,15 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/cros_system_api \
     third_party/devscripts \
     third_party/dom_distiller_js \
+    third_party/expat \
     third_party/ffmpeg \
     third_party/fips181 \
     third_party/flatbuffers \
     third_party/flot \
     third_party/fontconfig \
+    third_party/freetype \
+    third_party/glslang-angle \
+    third_party/googletest \
     third_party/google_input_tools \
     third_party/google_input_tools/third_party/closure_library \
     third_party/google_input_tools/third_party/closure_library/third_party/closure \
@@ -359,6 +370,7 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
 %endif
     third_party/hunspell \
     third_party/iccjpeg \
+    third_party/inspector_protocol \
 %if !%{with system_jinja2}
     third_party/jinja2 \
 %endif
@@ -367,6 +379,7 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/leveldatabase \
     third_party/libaddressinput \
     third_party/libaom \
+    third_party/libaom/source/libaom/third_party/x86inc \
     third_party/libjingle \
     third_party/libphonenumber \
     third_party/libsecret \
@@ -396,12 +409,21 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/mesa \
     third_party/metrics_proto \
     third_party/modp_b64 \
-    third_party/mt19937ar \
+    third_party/node/node_modules/polymer-bundler/lib/third_party/UglifyJS2 \
     third_party/openh264 \
     third_party/openmax_dl \
     third_party/opus \
     third_party/ots \
-    third_party/freetype \
+    third_party/pdfium \
+    third_party/pdfium/third_party/agg23 \
+    third_party/pdfium/third_party/base \
+    third_party/pdfium/third_party/bigint \
+    third_party/pdfium/third_party/freetype \
+    third_party/pdfium/third_party/lcms \
+    third_party/pdfium/third_party/libopenjpeg20 \
+    third_party/pdfium/third_party/libpng16 \
+    third_party/pdfium/third_party/libtiff \
+    third_party/pdfium/third_party/skia_shared \
 %if !%{with system_ply}
     third_party/ply \
 %endif
@@ -409,54 +431,37 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/protobuf \
     third_party/protobuf/third_party/six \
     third_party/qcms \
+    third_party/qunit \
     third_party/s2cellid \
     third_party/sfntly \
+    third_party/sinonjs \
     third_party/skia \
     third_party/skia/third_party/vulkan \
     third_party/skia/third_party/gif \
-    third_party/node/node_modules/polymer-bundler/lib/third_party/UglifyJS2 \
     third_party/smhasher \
     third_party/speech-dispatcher \
+    third_party/spirv-tools-angle \
+    third_party/spirv-headers \
     third_party/sqlite \
-    third_party/expat \
     third_party/tcmalloc \
+    third_party/unrar \
     third_party/usb_ids \
     third_party/usrsctp \
+    third_party/vulkan \
+    third_party/vulkan-validation-layers \
     third_party/web-animations-js \
     third_party/webdriver \
     third_party/WebKit \
     third_party/webrtc \
     third_party/widevine \
-    third_party/inspector_protocol \
-    v8/third_party/inspector_protocol \
     third_party/woff2 \
     third_party/xdg-utils \
     third_party/yasm/run_yasm.py \
     third_party/zlib/google \
-    third_party/sinonjs \
-    third_party/blanketjs \
-    third_party/qunit \
     url/third_party/mozilla \
-    third_party/pdfium \
-    third_party/pdfium/third_party/agg23 \
-    third_party/pdfium/third_party/base \
-    third_party/pdfium/third_party/bigint \
-    third_party/pdfium/third_party/build \
-    third_party/pdfium/third_party/freetype \
-    third_party/pdfium/third_party/lcms \
-    third_party/pdfium/third_party/libopenjpeg20 \
-    third_party/pdfium/third_party/libpng16 \
-    third_party/pdfium/third_party/libtiff \
-    third_party/googletest \
-    third_party/glslang-angle \
-    third_party/vulkan \
-    third_party/vulkan-validation-layers \
-    third_party/spirv-tools-angle \
-    third_party/spirv-headers \
-%if !%{with system_harfbuzz}
-    third_party/harfbuzz-ng \
-%endif
-    v8/src/third_party/valgrind
+    v8/src/third_party/valgrind \
+    v8/third_party/inspector_protocol
+
 
 
 python2 build/linux/unbundle/replace_gn_files.py --system-libraries \
@@ -792,7 +797,6 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{_unitdir}/chrome-remote-desktop.service
 /var/lib/chrome-remote-desktop/
 %endif
-
 
 
 %changelog
