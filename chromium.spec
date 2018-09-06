@@ -88,10 +88,10 @@ Patch3:     chromium-master-prefs-path.patch
 
 %ifarch armv7hl
 # Enable mmal hardware acceleration for RPi's
-Patch5:     v65.0.3325.212_mmal_2.15.patch
+#Patch5:     v65.0.3325.212_mmal_2.15.patch
 # Fedberry mmal build fixes
-Patch6:     mmal-build-fixes.patch
-Patch7:     mmal-build-fix-gles2.patch
+#Patch6:     mmal-build-fixes.patch
+#Patch7:     mmal-build-fix-gles2.patch
 %endif
 
 # Add a patch from Fedora to fix GN build
