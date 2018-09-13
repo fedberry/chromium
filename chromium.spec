@@ -647,7 +647,7 @@ _flags+=(
 sed -i 's|arm-linux-gnueabihf-||g' build/toolchain/linux/BUILD.gn
 %endif
 
-python2 tools/gn/bootstrap/bootstrap.py -v --gn-gen-args "${_flags[*]}"
+python2 tools/gn/bootstrap/bootstrap.py -vv --gn-gen-args "${_flags[*]}"
 
 ./out/Release/gn gen --args="${_flags[*]}" out/Release
 
@@ -655,15 +655,14 @@ python2 tools/gn/bootstrap/bootstrap.py -v --gn-gen-args "${_flags[*]}"
 jobs=$(expr $(grep -c ^processor /proc/cpuinfo))
 
 %if %{with devel_tools}
-%__ninja -C out/Release -v chrome chrome_sandbox chromedriver widevinecdmadapter -j$jobs
+%__ninja -C out/Release -vv chrome chrome_sandbox chromedriver -j$jobs
 %else
-%__ninja -C out/Release -v chrome widevinecdmadapter -j$jobs
+%__ninja -C out/Release -vv chrome -j$jobs
 %endif
 
 %if %{with remote_desktop}
-%__ninja -C out/Release -v remoting_all -j$jobs
+%__ninja -C out/Release -vv remoting_all -j$jobs
 %endif
-
 
 
 %install
