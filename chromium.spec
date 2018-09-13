@@ -98,10 +98,6 @@ Patch3:     chromium-master-prefs-path.patch
 # http://pkgs.fedoraproject.org/cgit/rpms/chromium.git/commit/?id=0df9641
 Patch10:    chromium-last-commit-position.patch
 
-# Misc. Gentoo fixes
-# https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=1b8e99b
-Patch22:    chromium-clang-r2.patch
-Patch23:    chromium-clang-r4.patch
 
 ExclusiveArch: armv7hl x86_64 i686
 
