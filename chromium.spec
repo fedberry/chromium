@@ -567,7 +567,7 @@ export AR=ar NM=nm
 
 _flags+=(
     'enable_google_now=false'
-    'enable_hangout_services_extension=false'
+    'enable_hangout_services_extension=true'
     'enable_iterator_debugging=false'
     'enable_nacl=false'
     'enable_nacl_nonsfi=false'
@@ -595,7 +595,6 @@ _flags+=(
     'use_cups=true'
     'use_custom_libcxx=false'
     'use_dbus=true'
-    'use_gconf=false'
     'use_gnome_keyring=false'
     'use_gold=false'
     'use_ozone=false'
