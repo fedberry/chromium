@@ -278,8 +278,9 @@ sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/d
 sed -r -i 's/xlocale.h/locale.h/' buildtools/third_party/libc++/trunk/include/__locale
 
 # /usr/bin/python will be removed or switched to Python 3 in the future f28
-#find . -name "*.py" |xargs sed -i 's|/usr/bin/env python|/usr/bin/env python2|g'
-find . -name '*.py' -exec sed -i -r 's|/usr/bin/python$|&2|g' {} +
+%if 0%{?fedora} > 27
+sed -i '1s|python$|&2|' third_party/dom_distiller_js/protoc_plugins/*.py
+%endif
 
 # https://fedoraproject.org/wiki/Changes/Avoid_usr_bin_python_in_RPM_Build#Quick_Opt-Out
 export PYTHON_DISALLOW_AMBIGUOUS_VERSION=0
@@ -309,6 +310,12 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
 # Allow building against system libraries in official builds
   sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' \
     tools/generate_shim_headers/generate_shim_headers.py
+
+# python2 fix
+mkdir -p "$HOME/bin/"
+ln -sfn /usr/bin/python2.7 $HOME/bin/python
+export PATH="$HOME/bin/:$PATH"
+
 
 python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     buildtools/third_party/libc++ \
@@ -522,10 +529,18 @@ ln -s %{python2_sitelib}/ply third_party/ply
 FILE=chrome/common/channel_info_posix.cc
 sed -i.orig -e 's/getenv("CHROME_VERSION_EXTRA")/"FedBerry"/' $FILE
 
+# Force script incompatible with Python 3 to use /usr/bin/python2
+sed -i '1s|python$|&2|' third_party/dom_distiller_js/protoc_plugins/*.py
 
 
 %build
 cd %{_builddir}/chromium-%{version}/
+
+# https://fedoraproject.org/wiki/Changes/Avoid_usr_bin_python_in_RPM_Build#Quick_Opt-Out
+export PYTHON_DISALLOW_AMBIGUOUS_VERSION=0
+
+# python fix
+export PATH="$HOME/bin/:$PATH"
 
 %if %{with clang}
 export CC=clang CXX=clang++
