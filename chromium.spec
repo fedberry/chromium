@@ -286,6 +286,7 @@ sed -i '1s|python$|&2|' third_party/dom_distiller_js/protoc_plugins/*.py
 export PYTHON_DISALLOW_AMBIGUOUS_VERSION=0
 
 %if %{with clang}
+%if 0%{?fedora} <= 27
 # Remove compiler flags not supported by Fedora's system clang
 sed -i \
 -e '/"-Wno-unused-lambda-capture"/d' \
@@ -298,6 +299,11 @@ build/config/compiler/BUILD.gn
 
 # Remove ldflags not supported by Fedora's system lld
 sed -i 's/ || use_lld//' tools/v8_context_snapshot/BUILD.gn
+%endif
+
+%if 0%{?fedora} >= 28
+sed -i '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn
+%endif
 %endif
 
 ### build with widevine support
