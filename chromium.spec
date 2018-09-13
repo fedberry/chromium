@@ -86,18 +86,38 @@ Patch2:     chromium-parallel.patch
 # Change master_preferences path
 Patch3:     chromium-master-prefs-path.patch
 
-%ifarch armv7hl
-# Enable mmal hardware acceleration for RPi's
-#Patch5:     v65.0.3325.212_mmal_2.15.patch
-# Fedberry mmal build fixes
-#Patch6:     mmal-build-fixes.patch
-#Patch7:     mmal-build-fix-gles2.patch
-%endif
-
-# Add a patch from Fedora to fix GN build
+# Fix GN build (Fedora)
 # http://pkgs.fedoraproject.org/cgit/rpms/chromium.git/commit/?id=0df9641
 Patch10:    chromium-last-commit-position.patch
 
+# Fix 'Unknown command line arguments' with llvm (UnitedRPMS)
+Patch11:     chromium-llvm-fix.patch
+
+# Fix includes that cause errors in jumbo builds (Debian)
+Patch12:    chromium-include-collisions.patch
+
+# Disable build commands for embedded fontconfig (Debian)
+Patch13:    chromium-fontconfig.patch
+
+### Misc. Gentoo fixes
+# Re-enable widevine support for linux! :-/
+# https://gitweb.gentoo.org/repo/gentoo.git/commit/www-client/chromium/files?id=09b804516320eee06930303870cd68008aac8a8a
+Patch24:    chromium-widevine-r2.patch
+
+# Fix missing includes
+# https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=79f1141
+Patch25:    chromium-cors-string.patch
+Patch26:    chromium-libjpeg.patch
+Patch27:    chromium-libwebp-shim.patch
+
+### Enable mmal hardware acceleration for RPi's
+%ifarch armv7hl
+#Patch100:     v65.0.3325.212_mmal_2.15.patch
+
+# Fedberry mmal build fixes
+#Patch101:     mmal-build-fixes.patch
+#Patch102:     mmal-build-fix-gles2.patch
+%endif
 
 ExclusiveArch: armv7hl x86_64 i686
 
