@@ -343,8 +343,11 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     courgette/third_party \
     native_client/src/third_party/dlmalloc \
     native_client/src/third_party/valgrind \
+    net/third_party/http2 \
     net/third_party/mozilla_security_manager \
     net/third_party/nss \
+    net/third_party/quic \
+    net/third_party/spdy \
     third_party/node \
     third_party/adobe \
     third_party/analytics \
@@ -358,6 +361,7 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/angle/third_party/spirv-headers \
     third_party/angle/third_party/spirv-tools \
     third_party/angle/third_party/vulkan-validation-layers \
+    third_party/apple_apsl \
     third_party/blanketjs \
     third_party/blink \
     third_party/boringssl \
@@ -378,6 +382,8 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/catapult/tracing/third_party/pako \
     third_party/ced \
     third_party/cld_3 \
+    third_party/crashpad \
+    third_party/crashpad/crashpad/third_party/zlib \
     third_party/crc32c \
     third_party/cros_system_api \
     third_party/devscripts \
@@ -408,11 +414,11 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/leveldatabase \
     third_party/libaddressinput \
     third_party/libaom \
-    third_party/libaom/source/libaom/third_party/x86inc \
     third_party/libjingle \
     third_party/libphonenumber \
     third_party/libsecret \
     third_party/libsrtp \
+    third_party/libsync \
     third_party/libudev \
     third_party/libusb \
 %if !%{with system_libvpx}
@@ -453,20 +459,24 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/pdfium/third_party/libpng16 \
     third_party/pdfium/third_party/libtiff \
     third_party/pdfium/third_party/skia_shared \
+    third_party/perfetto \
 %if !%{with system_ply}
     third_party/ply \
 %endif
     third_party/polymer \
     third_party/protobuf \
     third_party/protobuf/third_party/six \
+    third_party/pyjson5 \
     third_party/qcms \
     third_party/qunit \
+    third_party/rnnoise \
     third_party/s2cellid \
     third_party/sfntly \
     third_party/sinonjs \
     third_party/skia \
-    third_party/skia/third_party/vulkan \
     third_party/skia/third_party/gif \
+    third_party/skia/third_party/skcms \
+    third_party/skia/third_party/vulkan \
     third_party/smhasher \
     third_party/speech-dispatcher \
     third_party/spirv-tools-angle \
@@ -489,6 +499,7 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/zlib/google \
     url/third_party/mozilla \
     v8/src/third_party/valgrind \
+    v8/third_party/antlr4 \
     v8/third_party/inspector_protocol
 
 
