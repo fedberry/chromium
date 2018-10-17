@@ -18,11 +18,7 @@
 
 %bcond_with system_libvpx
 
-%if 0%{?fedora} < 26
-%bcond_without system_jinja2
-%else
 %bcond_with system_jinja2
-%endif
 
 # markupsafe
 %bcond_with system_markupsafe
@@ -35,11 +31,7 @@
 %bcond_with _gkt3
 
 # Require libxml2 > 2.9.4 for XML_PARSE_NOXXE
-%if 0%{?fedora} >= 27
 %bcond_without system_libxml2
-%else
-%bcond_with system_libxml2
-%endif
 
 %if 0%{?fedora} >= 28
 %bcond_without system_harfbuzz
@@ -288,8 +280,10 @@ build/config/compiler/BUILD.gn
 sed -i 's/ || use_lld//' tools/v8_context_snapshot/BUILD.gn
 %endif
 
-%if 0%{?fedora} >= 28
-sed -i '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn
+%if 0%{?fedora} > 27
+sed -i \
+-e '/"-Wno-ignored-pragma-optimize"/d' \
+build/config/compiler/BUILD.gn
 %endif
 %endif
 
