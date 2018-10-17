@@ -86,6 +86,10 @@ Patch2:     chromium-parallel.patch
 # Change master_preferences path
 Patch3:     chromium-master-prefs-path.patch
 
+# Don't use unversioned python commands. This patch is based on
+# https://src.fedoraproject.org/rpms/chromium/c/7048e95ab61cd143
+# https://src.fedoraproject.org/rpms/chromium/c/cb0be2c990fc724e
+Patch4:    chromium-bootstrap-python2.patch
 
 # Disable build commands for embedded fontconfig (Debian)
 Patch13:    chromium-fontconfig.patch
@@ -237,6 +241,11 @@ Remote desktop support for google-chrome & chromium.
 %prep
 %autosetup -n chromium-%{version} -p1
 
+%if 0%{?fedora} > 27
+# Change shebang in all relevant files in this directory and all subdirectories
+find -type f -exec sed -iE '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{__python2}=' {} +
+%endif
+
 %if %{with system_markupsafe}
 pushd third_party/
 rm -rf markupsafe/
@@ -263,16 +272,8 @@ sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/d
 # xlocale.h is gone in >= F26
 sed -r -i 's/xlocale.h/locale.h/' buildtools/third_party/libc++/trunk/include/__locale
 
-# /usr/bin/python will be removed or switched to Python 3 in the future f28
-%if 0%{?fedora} > 27
-sed -i '1s|python$|&2|' third_party/dom_distiller_js/protoc_plugins/*.py
-%endif
-
-# https://fedoraproject.org/wiki/Changes/Avoid_usr_bin_python_in_RPM_Build#Quick_Opt-Out
-export PYTHON_DISALLOW_AMBIGUOUS_VERSION=0
-
 %if %{with clang}
-%if 0%{?fedora} <= 27
+%if 0%{?fedora} < 28
 # Remove compiler flags not supported by Fedora's system clang
 sed -i \
 -e '/"-Wno-unused-lambda-capture"/d' \
@@ -302,12 +303,6 @@ sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/w
 # Allow building against system libraries in official builds
   sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' \
     tools/generate_shim_headers/generate_shim_headers.py
-
-# python2 fix
-mkdir -p "$HOME/bin/"
-ln -sfn /usr/bin/python2.7 $HOME/bin/python
-export PATH="$HOME/bin/:$PATH"
-
 
 python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     buildtools/third_party/libc++ \
@@ -532,23 +527,15 @@ ln -s %{python2_sitelib}/ply third_party/ply
 FILE=chrome/common/channel_info_posix.cc
 sed -i.orig -e 's/getenv("CHROME_VERSION_EXTRA")/"FedBerry"/' $FILE
 
-# Force script incompatible with Python 3 to use /usr/bin/python2
-sed -i '1s|python$|&2|' third_party/dom_distiller_js/protoc_plugins/*.py
-
 
 %build
 cd %{_builddir}/chromium-%{version}/
-
-# https://fedoraproject.org/wiki/Changes/Avoid_usr_bin_python_in_RPM_Build#Quick_Opt-Out
-export PYTHON_DISALLOW_AMBIGUOUS_VERSION=0
-
-# python fix
-export PATH="$HOME/bin/:$PATH"
 
 %if %{with clang}
 export CC=clang CXX=clang++
 %endif
 export AR=ar NM=nm
+export PNACLPYTHON=%{__python2}
 
 
 _flags+=(
@@ -635,7 +622,7 @@ sed -i 's|arm-linux-gnueabihf-||g' build/toolchain/linux/BUILD.gn
 
 python2 tools/gn/bootstrap/bootstrap.py -vv --gn-gen-args "${_flags[*]}"
 
-./out/Release/gn gen --args="${_flags[*]}" out/Release
+./out/Release/gn gen --script-executable=/usr/bin/python2 --args="${_flags[*]}" out/Release
 
 # Set jobs to number of cores less 1
 jobs=$(expr $(grep -c ^processor /proc/cpuinfo))
