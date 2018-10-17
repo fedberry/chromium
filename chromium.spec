@@ -86,15 +86,6 @@ Patch2:     chromium-parallel.patch
 # Change master_preferences path
 Patch3:     chromium-master-prefs-path.patch
 
-# Fix GN build (Fedora)
-# http://pkgs.fedoraproject.org/cgit/rpms/chromium.git/commit/?id=0df9641
-Patch10:    chromium-last-commit-position.patch
-
-# Fix 'Unknown command line arguments' with llvm (UnitedRPMS)
-Patch11:     chromium-llvm-fix.patch
-
-# Fix includes that cause errors in jumbo builds (Debian)
-Patch12:    chromium-include-collisions.patch
 
 # Disable build commands for embedded fontconfig (Debian)
 Patch13:    chromium-fontconfig.patch
@@ -104,11 +95,6 @@ Patch13:    chromium-fontconfig.patch
 # https://gitweb.gentoo.org/repo/gentoo.git/commit/www-client/chromium/files?id=09b804516320eee06930303870cd68008aac8a8a
 Patch24:    chromium-widevine-r2.patch
 
-# Fix missing includes
-# https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=79f1141
-Patch25:    chromium-cors-string.patch
-Patch26:    chromium-libjpeg.patch
-Patch27:    chromium-libwebp-shim.patch
 
 ### Enable mmal hardware acceleration for RPi's
 %ifarch armv7hl
