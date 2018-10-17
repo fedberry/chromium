@@ -323,6 +323,7 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     net/third_party/nss \
     net/third_party/quic \
     net/third_party/spdy \
+    third_party/abseil-cpp \
     third_party/node \
     third_party/adobe \
     third_party/analytics \
@@ -335,6 +336,9 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/angle/third_party/glslang \
     third_party/angle/third_party/spirv-headers \
     third_party/angle/third_party/spirv-tools \
+    third_party/angle/third_party/vulkan-headers \
+    third_party/angle/third_party/vulkan-loader \
+    third_party/angle/third_party/vulkan-tools \
     third_party/angle/third_party/vulkan-validation-layers \
     third_party/apple_apsl \
     third_party/blanketjs \
@@ -472,6 +476,7 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/xdg-utils \
     third_party/yasm/run_yasm.py \
     third_party/zlib/google \
+    tools/gn/base/third_party/icu \
     url/third_party/mozilla \
     v8/src/third_party/valgrind \
     v8/third_party/antlr4 \
