@@ -542,8 +542,7 @@ export CC=clang CXX=clang++
 export AR=ar NM=nm
 export PNACLPYTHON=%{__python2}
 
-
-_flags+=(
+_flags=(
     'enable_google_now=false'
     'enable_hangout_services_extension=true'
     'enable_iterator_debugging=false'
@@ -619,6 +618,21 @@ _flags+=(
     'jumbo_file_merge_limit=10'
 %endif
 )
+
+# Disable CFI for x86_64. With CFI enabled, -fsanitize-blacklist is added to
+# compiler flags and the build will fail as Fedora's (29) clang does not ship
+# /usr/lib64/clang/7.0.0/share/cfi_blacklist.txt.
+# https://blogs.igalia.com/jaragunde/2018/06/13/chromium-official-release-builds-and-icecc/
+# https://chromium-review.googlesource.com/1058807
+
+_flags+=(
+%if %{with clang}
+%ifarch x86_64
+    'is_cfi = false'
+%endif
+%endif
+)
+
 
 # fix arm gcc
 %ifarch armv7hl
