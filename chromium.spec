@@ -81,7 +81,10 @@ Patch3:     chromium-master-prefs-path.patch
 # Don't use unversioned python commands. This patch is based on
 # https://src.fedoraproject.org/rpms/chromium/c/7048e95ab61cd143
 # https://src.fedoraproject.org/rpms/chromium/c/cb0be2c990fc724e
-Patch4:    chromium-bootstrap-python2.patch
+Patch4:     chromium-bootstrap-python2.patch
+
+# https://bugs.chromium.org/p/gn/issues/detail?id=6
+Patch5:     chromium-missing-arm-headers.patch
 
 # Disable build commands for embedded fontconfig (Debian)
 Patch13:    chromium-fontconfig.patch
