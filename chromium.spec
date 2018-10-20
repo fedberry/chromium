@@ -283,10 +283,8 @@ build/config/compiler/BUILD.gn
 sed -i 's/ || use_lld//' tools/v8_context_snapshot/BUILD.gn
 %endif
 
-%if 0%{?fedora} > 27
-sed -i \
--e '/"-Wno-ignored-pragma-optimize"/d' \
-build/config/compiler/BUILD.gn
+%if 0%{?fedora} == 28
+sed -i '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn
 %endif
 %endif
 
