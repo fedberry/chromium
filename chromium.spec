@@ -836,6 +836,17 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 
 
 %changelog
+* Sat Oct 20 2018 Vaughan Agrez <devel at agrez dot net> 69.0.3497.100-1
+- Rebase to 69.0.3497.100 release
+- Update/refactor/drop various patches
+- Update bundled/unbundled libs
+- Refactor python2 fixes
+- Drop widevinecdmadapter target
+- Add missing arm header files in tools/gn/base/numerics (Patch5)
+- Disable mmal support for now
+- Update GN args
+- Disable CFI for x86_64
+
 * Sun Jun 24 2018 Vaughan Agrez <devel at agrez dot net> 65.0.3325.181-3
 - Update chromium-wrapper
 - Enable mmal hardware acceleration for RPi's (Patch5)
