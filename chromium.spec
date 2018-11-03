@@ -106,64 +106,83 @@ Patch24:    chromium-widevine-r2.patch
 
 ExclusiveArch: armv7hl x86_64 i686
 
-BuildRequires: clang, llvm, lld
-BuildRequires: ninja-build, bison, gperf, hwdata
-BuildRequires: libgcc, glibc
-BuildRequires: libatomic
-BuildRequires: libcap-devel, cups-devel, minizip-devel, alsa-lib-devel
-BuildRequires: pkgconfig(libexif), pkgconfig(nss)
-%if %{with _gtk3}
-BuildRequires: pkgconfig(gtk+-3.0)
-%else
-BuildRequires: pkgconfig(gtk+-2.0)
-%endif
-BuildRequires: pkgconfig(xtst), pkgconfig(xscrnsaver)
-BuildRequires: pkgconfig(dbus-1), pkgconfig(libudev)
+BuildRequires: pkgconfig(alsa)
+BuildRequires: pkgconfig(atk-bridge-2.0)
+BuildRequires: pkgconfig(dbus-1)
+BuildRequires: pkgconfig(flac)
+BuildRequires: pkgconfig(fontconfig)
+BuildRequires: pkgconfig(freetype2)
+BuildRequires: pkgconfig(gl)
 BuildRequires: pkgconfig(gnome-keyring-1)
+BuildRequires: pkgconfig(gtk+-3.0)
+BuildRequires: pkgconfig(libcap)
+BuildRequires: pkgconfig(libdrm)
+BuildRequires: pkgconfig(libexif)
 BuildRequires: pkgconfig(libffi)
-BuildRequires: python2-rpm-macros
+BuildRequires: pkgconfig(libjpeg)
+BuildRequires: pkgconfig(libpci)
+BuildRequires: pkgconfig(libpng)
+BuildRequires: pkgconfig(libudev)
+BuildRequires: pkgconfig(libwebp)
+BuildRequires: pkgconfig(libxslt)
+BuildRequires: pkgconfig(minizip)
+BuildRequires: pkgconfig(nss)
+BuildRequires: pkgconfig(opus)
+BuildRequires: pkgconfig(re2)
+BuildRequires: pkgconfig(snappy)
+BuildRequires: pkgconfig(speech-dispatcher)
+BuildRequires: pkgconfig(xcb-image)
+BuildRequires: pkgconfig(xscrnsaver)
+BuildRequires: pkgconfig(xtst)
+BuildRequires: pkgconfig(zlib)
+
+BuildRequires: bison
+BuildRequires: clang
+BuildRequires: cups-devel
+BuildRequires: desktop-file-utils
+BuildRequires: git
+BuildRequires: glibc
+BuildRequires: gperf
+BuildRequires: hwdata
+BuildRequires: libappstream-glib
+BuildRequires: libatomic
+BuildRequires: libgcc
+BuildRequires: lld
+BuildRequires: llvm
+BuildRequires: ninja-build
+BuildRequires: nodejs
+BuildRequires: pam-devel
 BuildRequires: python-beautifulsoup4
 BuildRequires: python-html5lib
+BuildRequires: python2-rpm-macros
+BuildRequires: systemd
+BuildRequires: yasm
+
+
+%if %{with system_harfbuzz}
+BuildRequires: pkgconfig(harfbuzz)
+%endif
+
 %if %{with system_jinja2}
 BuildRequires: python2-jinja2
 %endif
-%if %{with system_markupsafe}
-BuildRequires: python2-markupsafe
-%endif
-%if %{with system_ply}
-BuildRequires: python2-ply
-%endif
-BuildRequires: flac-devel
-BuildRequires: freetype-devel
-%if %{with system_harfbuzz}
-BuildRequires: harfbuzz-devel
-%endif
-BuildRequires: libjpeg-turbo-devel
-BuildRequires: libpng-devel
+
 %if %{with system_libvpx}
-BuildRequires: libvpx-devel
+BuildRequires: pkgconfig(vpx)
 %endif
-BuildRequires: libwebp-devel
-BuildRequires: pkgconfig(libxslt)
-BuildRequires: opus-devel
+
 %if %{with system_libxml2}
 BuildRequires: pkgconfig(libxml-2.0)
 %endif
-BuildRequires: re2-devel
-BuildRequires: snappy-devel
-BuildRequires: yasm
-BuildRequires: zlib-devel
-BuildRequires: pciutils-devel
-BuildRequires: speech-dispatcher-devel
-BuildRequires: desktop-file-utils
-BuildRequires: libappstream-glib
-BuildRequires: pam-devel
-BuildRequires: systemd
-BuildRequires: git
-BuildRequires: nodejs
-BuildRequires: libdrm-devel
-BuildRequires: mesa-libGL-devel
-BuildRequires: pkgconfig(xcb-image)
+
+%if %{with system_markupsafe}
+BuildRequires: python2-markupsafe
+%endif
+
+%if %{with system_ply}
+BuildRequires: python2-ply
+%endif
+
 %ifarch armv7hl
 BuildRequires: raspberrypi-vc-libs-devel
 BuildRequires: raspberrypi-vc-static
@@ -174,9 +193,11 @@ Requires(postun): desktop-file-utils
 Requires: hicolor-icon-theme
 Requires: re2
 Requires: %{name}-libs = %{version}-%{release}
+
 %ifarch armv7hl
 Requires: raspberrypi-vc-libs
 %endif
+
 Provides: chromium >= %{majorversion}
 
 
