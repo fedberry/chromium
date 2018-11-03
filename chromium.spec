@@ -567,9 +567,10 @@ export AR=ar NM=nm
 export PNACLPYTHON=%{__python2}
 
 _flags=(
-    'enable_google_now=false'
+    'concurrent_links=1'
     'enable_hangout_services_extension=true'
     'enable_iterator_debugging=false'
+    'enable_mdns=true'
     'enable_nacl=false'
     'enable_nacl_nonsfi=false'
     'enable_swiftshader=false'
