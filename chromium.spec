@@ -246,13 +246,6 @@ pushd third_party/
 rm -rf markupsafe/
 ln -sf %{python2_sitearch}/markupsafe/ markupsafe
 popd
-%else
-pushd third_party
-rm -rf markupsafe/
-git clone --depth 1 https://github.com/pallets/markupsafe.git
-cp -f $PWD/markupsafe/markupsafe/*.py $PWD/markupsafe/
-cp -f $PWD/markupsafe/markupsafe/*.c $PWD/markupsafe/
-popd
 %endif
 
 # node fix
@@ -324,6 +317,7 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     net/third_party/nss \
     net/third_party/quic \
     net/third_party/spdy \
+    net/third_party/uri_template \
     third_party/abseil-cpp \
     third_party/node \
     third_party/adobe \
@@ -394,6 +388,8 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/leveldatabase \
     third_party/libaddressinput \
     third_party/libaom \
+    third_party/libaom/source/libaom/third_party/vector \
+    third_party/libaom/source/libaom/third_party/x86inc \
     third_party/libjingle \
     third_party/libphonenumber \
     third_party/libsecret \
@@ -472,6 +468,13 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/webdriver \
     third_party/WebKit \
     third_party/webrtc \
+    third_party/webrtc/common_audio/third_party/fft4g \
+    third_party/webrtc/common_audio/third_party/spl_sqrt_floor \
+    third_party/webrtc/modules/third_party/fft \
+    third_party/webrtc/modules/third_party/g711 \
+    third_party/webrtc/modules/third_party/g722 \
+    third_party/webrtc/rtc_base/third_party/base64 \
+    third_party/webrtc/rtc_base/third_party/sigslot \
     third_party/widevine \
     third_party/woff2 \
     third_party/xdg-utils \
@@ -480,8 +483,8 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     tools/gn/base/third_party/icu \
     url/third_party/mozilla \
     v8/src/third_party/valgrind \
-    v8/third_party/antlr4 \
-    v8/third_party/inspector_protocol
+    v8/third_party/inspector_protocol \
+    v8/third_party/v8
 
 
 
@@ -503,8 +506,10 @@ python2 build/linux/unbundle/replace_gn_files.py --system-libraries \
     re2 \
     snappy \
     yasm \
+%if %{with system_libvpx}
+    libvpx \
+%endif
     zlib
-
 
 # Fix usb.ids location
 sed -i 's|//third_party/usb_ids|/usr/share/hwdata|g' device/usb/BUILD.gn
