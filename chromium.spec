@@ -7,13 +7,13 @@
 %global private_libs libEGL|libGLESv2|libVkLayer_core_validation|libVkLayer_swapchain|libVkLayer_object_tracker|libVkLayer_threading|libVkLayer_parameter_validation|libVkLayer_unique_objects
 %global __requires_exclude ^(%{private_libs})\\.so
 
-# Generally chromium is a monster if you compile the source code, enabling all; and takes hours compiling; common users doesn't need all tools.
-%bcond_without devel_tools
+# Build all the development tools
+%bcond_with devel_tools
 
 # Chromium users don't need chrome-remote-desktop
-%bcond_without remote_desktop
+%bcond_with remote_desktop
 
-# Use gcc instead of clang (default compiler is clang)
+# Use clang instead of gcc (clang is fast and capable of building chromium on armv7h)
 %bcond_without clang
 
 %bcond_with system_libvpx
@@ -43,10 +43,10 @@
 # https://chromium.googlesource.com/chromium/src/+/lkcr/docs/jumbo.md
 %bcond_without jumbo_unity
 
-%global majorversion 69
+%global majorversion 70
 
 Name:       chromium
-Version:    %{majorversion}.0.3497.100
+Version:    %{majorversion}.0.3538.77
 Release:    1%{?dist}
 Summary:    A WebKit (Blink) powered web browser
 Group:      Applications/Internet
@@ -645,14 +645,15 @@ python2 tools/gn/bootstrap/bootstrap.py -vv --gn-gen-args "${_flags[*]}"
 jobs=$(expr $(grep -c ^processor /proc/cpuinfo))
 
 %if %{with devel_tools}
-%__ninja -C out/Release -vv chrome chrome_sandbox chromedriver -j$jobs
+%__ninja -C out/Release -v chrome chrome_sandbox chromedriver -j$jobs
 %else
-%__ninja -C out/Release -vv chrome -j$jobs
+%__ninja -C out/Release -v chrome -j$jobs
 %endif
 
 %if %{with remote_desktop}
-%__ninja -C out/Release -vv remoting_all -j$jobs
+%__ninja -C out/Release -v remoting_all -j$jobs
 %endif
+
 
 
 %install
