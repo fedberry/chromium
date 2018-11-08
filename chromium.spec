@@ -29,11 +29,7 @@
 # Require libxml2 > 2.9.4 for XML_PARSE_NOXXE
 %bcond_without system_libxml2
 
-%if 0%{?fedora} >= 28
-%bcond_without system_harfbuzz
-%else
 %bcond_with system_harfbuzz
-%endif
 
 # Jumbo / Unity builds
 # https://chromium.googlesource.com/chromium/src/+/lkcr/docs/jumbo.md
@@ -604,8 +600,7 @@ _flags=(
 %endif
 %ifarch x86_64
     'system_libdir="lib64"'
-%endif
-%ifnarch x86_64
+%else
     'target_extra_ldflags="-Wl,--no-keep-memory -Wl,--reduce-memory-overheads"'
 %endif
 %ifarch armv7hl
