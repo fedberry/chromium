@@ -26,10 +26,6 @@
 # https://github.com/dabeaz/ply/issues/66
 %bcond_without system_ply
 
-# Chromium used to break on wayland, hidpi, and colors with gtk3 enabled.
-# Hopefully it does not anymore.
-%bcond_with _gkt3
-
 # Require libxml2 > 2.9.4 for XML_PARSE_NOXXE
 %bcond_without system_libxml2
 
@@ -630,13 +626,6 @@ _flags=(
     'is_clang=false'
     'target_extra_cxxflags="-fno-delete-null-pointer-checks"'
     'target_extra_cflags="-fno-delete-null-pointer-checks"'
-%endif
-%if %{with _gtk3}
-    'use_gtk3=true'
-%else
-    'use_glib=true'
-    'use_gio=true'
-    'use_gtk3=false'
 %endif
 %if %{with jumbo_unity}
     'use_jumbo_build=true'
