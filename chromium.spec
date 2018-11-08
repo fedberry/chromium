@@ -848,6 +848,14 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 
 
 %changelog
+* Sun Nov 04 2018 Vaughan Agrez <devel at agrez dot net> 70.0.3538.77-1
+- Rebase to 70.0.3538.77 release
+- Update bundled/unbundled libs
+- Refactor BuildRequires
+- Add GN args: 'enable_mdns=true' & 'concurrent_links=1'
+- Update patches 3 & 13
+- Switch to Gtk3+ build as support for Gtk2+ has been dropped :-/
+
 * Sat Oct 20 2018 Vaughan Agrez <devel at agrez dot net> 69.0.3497.100-1
 - Rebase to 69.0.3497.100 release
 - Update/refactor/drop various patches
