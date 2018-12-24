@@ -664,7 +664,7 @@ _flags=(
 %endif
 %if %{with jumbo_unity}
     'use_jumbo_build=true'
-    'jumbo_file_merge_limit=10'
+    'jumbo_file_merge_limit=8'
 %endif
 )
 
