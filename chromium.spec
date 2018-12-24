@@ -13,7 +13,8 @@
 # Chromium users don't need chrome-remote-desktop
 %bcond_with remote_desktop
 
-# Use clang instead of gcc (clang is fast and capable of building chromium on armv7h)
+# Default to clang as gcc is incapable of building chromium on armv7h when
+# component builds are disabled
 %bcond_without clang
 
 %bcond_with system_libvpx
@@ -35,10 +36,10 @@
 # https://chromium.googlesource.com/chromium/src/+/lkcr/docs/jumbo.md
 %bcond_without jumbo_unity
 
-%global majorversion 70
+%global majorversion 71
 
 Name:       chromium
-Version:    %{majorversion}.0.3538.77
+Version:    %{majorversion}.0.3578.80
 Release:    1%{?dist}
 Summary:    A WebKit (Blink) powered web browser
 Group:      Applications/Internet
@@ -267,11 +268,13 @@ ln -s /usr/bin/node third_party/node/linux/node-linux-x64/bin/node
 
 %if %{with remote_desktop}
 # Fix hardcoded path in remoting code
-sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/daemon_controller_delegate_linux.cc
+sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' \
+remoting/host/setup/daemon_controller_delegate_linux.cc
 %endif
 
 # xlocale.h is gone in >= F26
-sed -r -i 's/xlocale.h/locale.h/' buildtools/third_party/libc++/trunk/include/__locale
+sed -r -i 's/xlocale.h/locale.h/' \
+buildtools/third_party/libc++/trunk/include/__locale
 
 %if %{with clang}
 %if 0%{?fedora} < 28
@@ -297,8 +300,9 @@ sed -i '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn
 ### build with widevine support
 
 # Patch from crbug (chromium bugtracker)
-# fix the missing define (if not, fail build) (need upstream fix) (https://crbug.com/473866)
-sed '14i#define WIDEVINE_CDM_VERSION_STRING "Something fresh"' -i "third_party/widevine/cdm/stub/widevine_cdm_version.h"
+# fix the missing define (if not, fail build) (https://crbug.com/473866)
+sed '14i#define WIDEVINE_CDM_VERSION_STRING "unknown"' \
+-i "third_party/widevine/cdm/widevine_cdm_version.h"
 
 
 # Allow building against system libraries in official builds
@@ -648,21 +652,21 @@ _flags+=(
 sed -i 's|arm-linux-gnueabihf-||g' build/toolchain/linux/BUILD.gn
 %endif
 
-python2 tools/gn/bootstrap/bootstrap.py -vv --gn-gen-args "${_flags[*]}"
+python2 tools/gn/bootstrap/bootstrap.py --gn-gen-args "${_flags[*]}"
 
 ./out/Release/gn gen --script-executable=/usr/bin/python2 --args="${_flags[*]}" out/Release
 
-# Set jobs to number of cores less 1
+# Set jobs to number of cores
 jobs=$(expr $(grep -c ^processor /proc/cpuinfo))
 
 %if %{with devel_tools}
-%__ninja -C out/Release -v chrome chrome_sandbox chromedriver -j$jobs
+%__ninja -C out/Release chrome chrome_sandbox chromedriver -j$jobs
 %else
-%__ninja -C out/Release -v chrome -j$jobs
+%__ninja -C out/Release chrome -j$jobs
 %endif
 
 %if %{with remote_desktop}
-%__ninja -C out/Release -v remoting_all -j$jobs
+%__ninja -C out/Release remoting_all -j$jobs
 %endif
 
 
