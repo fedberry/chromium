@@ -21,6 +21,9 @@
 
 %bcond_with system_jinja2
 
+# Requires re2 2016.07.21 for re2::LazyRE2
+%bcond_with system_re2
+
 # markupsafe
 %bcond_with system_markupsafe
 
@@ -141,7 +144,9 @@ BuildRequires: pkgconfig(libxslt)
 BuildRequires: pkgconfig(minizip)
 BuildRequires: pkgconfig(nss)
 BuildRequires: pkgconfig(opus)
+%if !%{with system_re2}
 BuildRequires: pkgconfig(re2)
+%endif
 BuildRequires: pkgconfig(snappy)
 BuildRequires: pkgconfig(speech-dispatcher)
 BuildRequires: pkgconfig(xcb-image)
@@ -204,7 +209,9 @@ BuildRequires: raspberrypi-vc-static
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
 Requires: hicolor-icon-theme
+%if !%{with system_re2}
 Requires: re2
+%endif
 Requires: %{name}-libs = %{version}-%{release}
 
 %ifarch armv7hl
@@ -482,6 +489,9 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/pyjson5 \
     third_party/qcms \
     third_party/qunit \
+%if !%{with system_re2}
+    third_party/re2 \
+%endif
     third_party/rnnoise \
     third_party/s2cellid \
     third_party/sfntly \
@@ -540,7 +550,9 @@ python2 build/linux/unbundle/replace_gn_files.py --system-libraries \
     libxml \
 %endif
     libxslt \
+%if %{with system_re2}
     re2 \
+%endif
     snappy \
     yasm \
 %if %{with system_libvpx}
