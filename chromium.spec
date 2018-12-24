@@ -66,7 +66,7 @@ Source13:   chromium-browser.appdata.xml
 Patch1:     chromium-buildflags.patch
 
 # Respect specified number of parallel jobs while bootstrapping gn (Debian)
-Patch2:     chromium-parallel.patch
+Patch2:     parallel.patch
 
 # Change master_preferences path
 Patch3:     chromium-master-prefs-path.patch
@@ -79,13 +79,33 @@ Patch4:     chromium-bootstrap-python2.patch
 # https://bugs.chromium.org/p/gn/issues/detail?id=6
 Patch5:     chromium-missing-arm-headers.patch
 
-# Disable build commands for embedded fontconfig (Debian)
-Patch13:    chromium-fontconfig.patch
 
-### Misc. Gentoo fixes
+### Misc. Debian patches
+
+# Disable dependency on chrome/android
+Patch7:     android.patch
+
+# Fuzzers aren't built, so don't depend on them
+Patch8:     disable_fuzzers.patch
+
+# Don't build chromium's installer
+Patch9:     disable_installer.patch
+
+# Disable dependencies on third_party/perfetto
+Patch10:    disable_perfetto.patch
+
+# Don't build the swiftshader library
+Patch11:    swiftshader.patch
+
+# Disable build commands for embedded fontconfig
+Patch13:    fontconfig.patch
+
+Patch14:    sysroot.patch
+
+
+### Misc. Gentoo patches
 # Re-enable widevine support for linux! :-/
-# https://gitweb.gentoo.org/repo/gentoo.git/commit/www-client/chromium/files?id=09b804516320eee06930303870cd68008aac8a8a
-Patch24:    chromium-widevine-r2.patch
+Patch24:    chromium-widevine-r3.patch
 
 
 ### Enable mmal hardware acceleration for RPi's
