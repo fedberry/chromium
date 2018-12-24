@@ -324,6 +324,8 @@ sed -i 's/ || use_lld//' tools/v8_context_snapshot/BUILD.gn
 %if 0%{?fedora} == 28
 sed -i '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn
 %endif
+
+sed -i '/"-Wno-defaulted-function-deleted"/d' build/config/compiler/BUILD.gn
 %endif
 
 ### build with widevine support
