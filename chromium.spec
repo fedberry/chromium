@@ -890,6 +890,12 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 
 
 %changelog
+* Sun Dec 16 2018 Vaughan Agrez <devel at agrez dot net> 71.0.3578.80-1
+- Rebase to 71.0.3578.80 release
+- Bundle re2 as Fedora's release is too old
+- Refresh / refactor patches
+- Update GN arg: jumbo_file_merge_limit=8
+
 * Sun Nov 04 2018 Vaughan Agrez <devel at agrez dot net> 70.0.3538.77-1
 - Rebase to 70.0.3538.77 release
 - Update bundled/unbundled libs
