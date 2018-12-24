@@ -431,6 +431,7 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
 %if !%{with system_jinja2}
     third_party/jinja2 \
 %endif
+    third_party/jsoncpp \
     third_party/jstemplate \
     third_party/khronos \
     third_party/leveldatabase \
@@ -508,6 +509,7 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/speech-dispatcher \
     third_party/spirv-tools-angle \
     third_party/spirv-headers \
+    third_party/SPIRV-Tools \
     third_party/sqlite \
     third_party/tcmalloc \
     third_party/unrar \
