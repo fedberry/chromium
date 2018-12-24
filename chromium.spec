@@ -279,7 +279,9 @@ Remote desktop support for google-chrome & chromium.
 
 %if 0%{?fedora} > 27
 # Change shebang in all relevant files in this directory and all subdirectories
-find -type f -exec sed -iE '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{__python2}=' {} +
+#find -type f -exec sed -iE '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{__python2}=' {} +
+find -type f -name "*.py" \
+-exec sed -i '1s=^#!/usr/bin/\(python\|env python\)[23]\?=#!%{__python2}=' {} +
 %endif
 
 %if %{with system_markupsafe}
