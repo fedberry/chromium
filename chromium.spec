@@ -39,10 +39,10 @@
 # https://chromium.googlesource.com/chromium/src/+/lkcr/docs/jumbo.md
 %bcond_without jumbo_unity
 
-%global majorversion 71
+%global majorversion 72
 
 Name:       chromium
-Version:    %{majorversion}.0.3578.80
+Version:    %{majorversion}.0.3626.121
 Release:    1%{?dist}
 Summary:    A WebKit (Blink) powered web browser
 Group:      Applications/Internet
