@@ -111,13 +111,14 @@ Patch14:    sysroot.patch
 Patch24:    chromium-widevine-r3.patch
 
 
-### Enable mmal hardware acceleration for RPi's
 %ifarch armv7hl
-#Patch100:     v65.0.3325.212_mmal_2.15.patch
+### Enable mmal hardware acceleration for RPi's
+Patch100:   v72.0.3626.110_mmal_3_19.patch
+Patch101:   libjpeg.patch
 
 # Fedberry mmal build fixes
-#Patch101:     mmal-build-fixes.patch
-#Patch102:     mmal-build-fix-gles2.patch
+Patch110:   mmal-build-fixes.patch
+Patch111:   mmal-build-fix-gles2.patch
 %endif
 
 

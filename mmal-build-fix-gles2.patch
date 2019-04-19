@@ -1,15 +1,16 @@
-From ed94de79e1be60ee2128bcf58facd7ac74f2f957 Mon Sep 17 00:00:00 2001
-Message-Id: <ed94de79e1be60ee2128bcf58facd7ac74f2f957.1529555056.git.devel@agrez.net>
+From c9eb2cef9dd1c4e9d88ec269c4ec74316f8b0396 Mon Sep 17 00:00:00 2001
+Message-Id: <c9eb2cef9dd1c4e9d88ec269c4ec74316f8b0396.1554608707.git.devel@agrez.net>
 From: Vaughan Agrez <devel@agrez.net>
-Date: Thu, 21 Jun 2018 12:24:06 +0800
-Subject: [PATCH] mmal build fix
+Date: Sun, 7 Apr 2019 11:44:52 +0800
+Subject: [PATCH] mmal build fix gles2
 
 ---
  gpu/command_buffer/client/gles2_interface.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ media/filters/mmal_video_decoder.cc         | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/gpu/command_buffer/client/gles2_interface.h b/gpu/command_buffer/client/gles2_interface.h
-index 85aa954..b6f1ecf 100644
+index 85aa9546c..b6f1ecff7 100644
 --- a/gpu/command_buffer/client/gles2_interface.h
 +++ b/gpu/command_buffer/client/gles2_interface.h
 @@ -5,7 +5,7 @@
@@ -21,6 +22,21 @@ index 85aa954..b6f1ecf 100644
  
  #include "base/compiler_specific.h"
  
+diff --git a/media/filters/mmal_video_decoder.cc b/media/filters/mmal_video_decoder.cc
+index 61cb0fd09..4129b1ded 100644
+--- a/media/filters/mmal_video_decoder.cc
++++ b/media/filters/mmal_video_decoder.cc
+@@ -17,8 +17,8 @@
+ 
+ #include "media/filters/mmal_video_decoder.h"
+ 
+-#include <GLES2/gl2.h>
+-#include <GLES2/gl2ext.h>
++#include "third_party/khronos/GLES2/gl2.h"
++#include "third_party/khronos/GLES2/gl2ext.h"
+ #include <stddef.h>
+ #include <stdint.h>
+ 
 -- 
-2.14.4
+2.20.1
 
