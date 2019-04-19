@@ -646,6 +646,7 @@ _flags=(
     'use_dbus=true'
     'use_gnome_keyring=false'
     'use_gold=false'
+    'use_goma=false'
     'use_ozone=false'
     'use_pulseaudio=false'
     'use_sysroot=false'
