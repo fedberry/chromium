@@ -120,6 +120,7 @@ Patch24:    chromium-widevine-r3.patch
 #Patch102:     mmal-build-fix-gles2.patch
 %endif
 
+
 ExclusiveArch: armv7hl x86_64 i686
 
 BuildRequires: pkgconfig(alsa)
@@ -370,10 +371,10 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/abseil-cpp \
     third_party/node \
     third_party/adobe \
-    third_party/analytics \
     third_party/angle \
     third_party/angle/src/common/third_party/base \
     third_party/angle/src/common/third_party/smhasher \
+    third_party/angle/src/common/third_party/xxhash \
     third_party/angle/src/third_party/compiler \
     third_party/angle/src/third_party/libXNVCtrl \
     third_party/angle/src/third_party/trace_event \
@@ -405,6 +406,7 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/catapult/tracing/third_party/pako \
     third_party/ced \
     third_party/cld_3 \
+    third_party/closure_compiler \
     third_party/crashpad \
     third_party/crashpad/crashpad/third_party/zlib \
     third_party/crc32c \
@@ -418,7 +420,6 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/flot \
     third_party/fontconfig \
     third_party/freetype \
-    third_party/glslang-angle \
     third_party/googletest \
     third_party/google_input_tools \
     third_party/google_input_tools/third_party/closure_library \
@@ -470,6 +471,7 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/mesa \
     third_party/metrics_proto \
     third_party/modp_b64 \
+    third_party/nasm \
     third_party/node/node_modules/polymer-bundler/lib/third_party/UglifyJS2 \
     third_party/openh264 \
     third_party/openmax_dl \
@@ -508,7 +510,6 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/skia/third_party/vulkan \
     third_party/smhasher \
     third_party/speech-dispatcher \
-    third_party/spirv-tools-angle \
     third_party/spirv-headers \
     third_party/SPIRV-Tools \
     third_party/sqlite \
@@ -517,10 +518,8 @@ python2 build/linux/unbundle/remove_bundled_libraries.py --do-remove \
     third_party/usb_ids \
     third_party/usrsctp \
     third_party/vulkan \
-    third_party/vulkan-validation-layers \
     third_party/web-animations-js \
     third_party/webdriver \
-    third_party/WebKit \
     third_party/webrtc \
     third_party/webrtc/common_audio/third_party/fft4g \
     third_party/webrtc/common_audio/third_party/spl_sqrt_floor \
