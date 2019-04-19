@@ -119,6 +119,15 @@ Patch101:   libjpeg.patch
 # Fedberry mmal build fixes
 Patch110:   mmal-build-fixes.patch
 Patch111:   mmal-build-fix-gles2.patch
+# Add inline assembly optimisations for arm neon
+Patch120: 0001-ARM-NEON-Add-inline-assembly-version-of-Clamp_S32_op.patch
+Patch121: 0002-ARM-NEON-Add-inline-assembly-version-of-blit_row_s32.patch
+Patch122: 0003-ARM-NEON-Reintroduce-S32_opaque_D32_filter_DX-provid.patch
+Patch123: 0004-ARM-NEON-Add-inline-assembly-version-of-ClampX_Clamp.patch
+Patch124: 0005-Replace-blend_row_A8-with-SkOpts-function-blit_row_s.patch
+Patch125: 0006-ARM-NEON-Add-inline-assembly-version-of-blit_row_s32.patch
+Patch126: 0007-ARM-NEON-Add-inline-assembly-version-of-memset32-sch.patch
+Patch127: 0008-ARM-NEON-Add-inline-assembly-version-of-S32_alpha_D3.patch
 %endif
 
 
