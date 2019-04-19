@@ -37,7 +37,7 @@
 
 # Jumbo / Unity builds
 # https://chromium.googlesource.com/chromium/src/+/lkcr/docs/jumbo.md
-%bcond_without jumbo_unity
+%bcond_with jumbo_unity
 
 %global majorversion 72
 
@@ -684,12 +684,12 @@ _flags=(
 %endif
 )
 
+
 # Disable CFI for x86_64. With CFI enabled, -fsanitize-blacklist is added to
 # compiler flags and the build will fail as Fedora's (29) clang does not ship
 # /usr/lib64/clang/7.0.0/share/cfi_blacklist.txt.
 # https://blogs.igalia.com/jaragunde/2018/06/13/chromium-official-release-builds-and-icecc/
 # https://chromium-review.googlesource.com/1058807
-
 _flags+=(
 %if %{with clang}
 %ifarch x86_64
