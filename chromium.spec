@@ -162,6 +162,7 @@ BuildRequires: git
 BuildRequires: glibc
 BuildRequires: gperf
 BuildRequires: hwdata
+BuildRequires: java-headless
 BuildRequires: libappstream-glib
 BuildRequires: libatomic
 BuildRequires: libgcc
