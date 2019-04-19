@@ -69,7 +69,7 @@ Source13:   chromium-browser.appdata.xml
 Patch1:     chromium-buildflags.patch
 
 # Respect specified number of parallel jobs while bootstrapping gn (Debian)
-Patch2:     parallel.patch
+Patch2:     gn-parallel.patch
 
 # Change master_preferences path
 Patch3:     chromium-master-prefs-path.patch
@@ -86,7 +86,7 @@ Patch5:     chromium-missing-arm-headers.patch
 ### Misc. Debian patches
 
 # Disable dependency on chrome/android
-Patch7:     android.patch
+Patch7:     disable_android.patch
 
 # Fuzzers aren't built, so don't depend on them
 Patch8:     disable_fuzzers.patch
@@ -94,22 +94,21 @@ Patch8:     disable_fuzzers.patch
 # Don't build chromium's installer
 Patch9:     disable_installer.patch
 
-# Disable dependencies on third_party/perfetto
-Patch10:    disable_perfetto.patch
+# Disable tracing
+Patch10:    disable_tracing.patch
 
 # Don't build the swiftshader library
-Patch11:    swiftshader.patch
+Patch11:    disable_swiftshader.patch
 
 # Disable build commands for embedded fontconfig
 Patch13:    fontconfig.patch
 
-Patch14:    sysroot.patch
-
 
 ### Misc. Gentoo patches
 # Re-enable widevine support for linux! :-/
-Patch24:    chromium-widevine-r3.patch
+Patch24:    chromium-widevine-r4.patch
 
+Patch25:    webrtc-missing-header.patch
 
 %ifarch armv7hl
 ### Enable mmal hardware acceleration for RPi's
@@ -119,6 +118,10 @@ Patch101:   libjpeg.patch
 # Fedberry mmal build fixes
 Patch110:   mmal-build-fixes.patch
 Patch111:   mmal-build-fix-gles2.patch
+
+# Add missing limits header to crashpad.
+Patch112: arm_crashpad.patch   
+
 # Add inline assembly optimisations for arm neon
 Patch120: 0001-ARM-NEON-Add-inline-assembly-version-of-Clamp_S32_op.patch
 Patch121: 0002-ARM-NEON-Add-inline-assembly-version-of-blit_row_s32.patch
